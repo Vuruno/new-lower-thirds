@@ -90,23 +90,23 @@
     })
   }
 
-  // var actTime = async () => {
-  //   const response = await fetch('https://worldtimeapi.org/api/timezone/America/Asuncion')
-  //   const data = await response.json()
-  //   var APInow = data.unixtime
-  //   var iso = data.datetime
-  //   iso = iso.split('.')[1].split('-')[0].slice(0, 3)
-  //   APInow = parseInt(APInow + '' + iso)
+  var actTime = async () => {
+    const response = await fetch('https://worldtimeapi.org/api/timezone/America/Asuncion')
+    const data = await response.json()
+    var APInow = data.unixtime
+    var iso = data.datetime
+    iso = iso.split('.')[1].split('-')[0].slice(0, 3)
+    APInow = parseInt(APInow + '' + iso)
 
 
 
-  //   return APInow
-  // }
+    return APInow
+  }
 
   async function triggerTimer(APIStart = '0') {
     if (stoptime == 0) {
       start = Date.now()
-      APInow = '<%=Date.now()%>'
+
       document.getElementById('chronobutton').innerHTML = ' <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sincronizando...'
       document.getElementById('chronobutton').classList.add('disabled')
       document.getElementById('chronobox').classList.add('bg-warning');
@@ -114,7 +114,7 @@
       stoptime = 1 // 'Seguro?' No se usa 2 por incompatibilidades
       timerCycle()
 
-      // actTime().then(APInow => {    
+      actTime().then(APInow => {    
       //ACTUALIZAR STATUS.JSON
       // Avisar que comenzó
       if (APIStart == '0') {
@@ -125,18 +125,18 @@
         console.log('start antes:   ' + start)
         console.log('APInow:        ' + APInow)
         console.log('APIStart:      ' + APIStart)
-        // var diferencia = start - APInow   
-        var diferencia = APInow - APIStart
+        var diferencia = start - APInow   
+        // var diferencia = APInow - APIStart
         console.log('diferencia:    ' + diferencia)
-        // start = APIStart - diferencia
-        start = start - (APInow - APIStart)
+        start = APIStart - diferencia
+        // start = start - (APInow - APIStart)
         console.log('start despues: ' + start)
         console.log(0)
       }
       stoptime = 2 // 'INICIADO'
       document.getElementById('chronobutton').classList.remove('disabled')
       document.getElementById('chronobutton').innerHTML = 'Parar y Reiniciar'
-      // })
+      })
     }
 
     else if (stoptime == 2) {
