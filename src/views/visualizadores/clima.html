@@ -1,0 +1,484 @@
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Clima
+    </title>
+    <%- include('../partials/head.html') %>
+        <script src="/scripts/clock.js"></script>
+        <link href="/styles/visualizadores.css" rel="stylesheet">
+</head>
+
+<body>
+    <main>
+        <div class="row w-100 bg-black bg-opacity-75 m-0 align-items-center">
+            <div class="col-1"></div>
+
+            <div class="col text-center align-self-end fw-light h7 pt-3" style="color: white; font-kerning: none;">
+                <%= grilla.titulo %> &nbsp | &nbsp <%= grilla.fecha %> &nbsp | &nbsp <%= grilla.sede %>
+            </div>
+
+            <div class="col-1 fs-5 p-0 text-center contenedor" style="color: white;">
+                <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 316.3 53.62">
+                    <defs>
+                        <style>
+                            .cls-2 {
+                                fill: #036;
+                            }
+                        </style>
+                    </defs>
+                    <path class="cls-2"
+                        d="M7063.76,7532.07h162.95c79.89,0,76.66-53.61,76.66-53.61H6987.1S6983.87,7532.07,7063.76,7532.07Z"
+                        transform="translate(-6987.08 -7478.46)" />
+                </svg>
+                <!-- RELOJ -->
+                <p id="clock" class="text-center dentroSVG h6" style="font-weight: normal;">
+                    00:00:00
+                </p>
+
+            </div>
+        </div>
+
+        <div class="row w-100 m-0 ps-5 pe-5 align-items-center text-nowrap animate__animated animate__slideInDown" style="background-color: #990000;">
+
+            <div class="col-4">
+                <% if (grilla.data[grilla.actual.output-2] !=undefined) { %>
+                    <div class="text-center h4" style="color: white;">
+                        <%= grilla.data[grilla.actual.output-2].categoria.nro %>.
+                            &nbsp<%= grilla.data[grilla.actual.output-2].categoria.bote %>
+                                <%= grilla.data[grilla.actual.output-2].categoria.cat %>
+                                    <%= grilla.data[grilla.actual.output-2].categoria.mf %>
+                    </div>
+                    <% } %>
+            </div>
+
+            <div class="col-4 p-0 contenedor m-0">
+                <svg id="Layer_3" data-name="Layer 3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 644.82 53.62">
+                    <defs>
+                        <style>
+                            .cls-1 {
+                                fill: #fff;
+                            }
+                        </style>
+                    </defs>
+                    <path class="cls-1"
+                        d="M7451.63,6767H6960.16c-79.89,0-76.66-53.62-76.66-53.62h644.79S7531.53,6767,7451.63,6767Z"
+                        transform="translate(-6883.49 -6713.35)" />
+                </svg>
+
+                <div class="dentroSVG text-center h3" style="font-weight: bold; color: #990000;">
+                    <%= grilla.data[grilla.actual.output-1].categoria.nro %>.
+                        &nbsp<%= grilla.data[grilla.actual.output-1].categoria.bote %>
+                            <%= grilla.data[grilla.actual.output-1].categoria.cat %>
+                                <%= grilla.data[grilla.actual.output-1].categoria.mf %>
+                </div>
+            </div>
+            <% if (grilla.data[grilla.actual.output-0] !=undefined) { %>
+                <div class="col-4">
+                    <div class="text-center h4" style="color: white;">
+                        <%= grilla.data[grilla.actual.output-0].categoria.nro %>.
+                            &nbsp<%= grilla.data[grilla.actual.output-0].categoria.bote %>
+                                <%= grilla.data[grilla.actual.output-0].categoria.cat %>
+                                    <%= grilla.data[grilla.actual.output-0].categoria.mf %>
+                    </div>
+                </div>
+                <% } %>
+        </div>
+
+        <div class="row w-100 h-50 align-items-end ps-5 animate__animated animate__fadeInLeft">
+            <div class="col-3 fs-5 bg-black bg-opacity-75 pb-2 contenedor">
+
+                <svg id="Layer_3" data-name="Layer 3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 644.82 53.62">
+                    <defs>
+                        <style>
+                            .cls-1 {
+                                fill: #fff;
+                            }
+                        </style>
+                    </defs>
+                    <path class="cls-1"
+                        d="M7451.63,6767H6960.16c-79.89,0-76.66-53.62-76.66-53.62h644.79S7531.53,6767,7451.63,6767Z"
+                        transform="translate(-6883.49 -6713.35)" />
+                </svg>
+
+                <div class="text-center dentroSVG fw-bold h5" style="color: #003366">
+                    Clima
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row w-100 align-items-end ps-5 animate__animated animate__fadeInLeft">
+            <div class="col-3 bg-black bg-opacity-75 fs-5 p-0 text-center" style="color: white;">
+                <p id="temp" class="h6 fw-light"> ...°C</p>
+                <p id="uv" class="h6 fw-light"> UV: ...</p>
+                <p id="viento" class="h6 fw-light"> ...km/h ... </p>
+
+                <p class="h6" style="background-color: #003366;">En 1 hora: </p>
+                <p id="prob" class="h6 fw-light"> ...% </p>
+                <p id="pronosViento" class="h6 fw-light"> ...km/h ... </p>
+            </div>
+            <p class="m-0 p-0" style="font-size: 1.2em; color: black;"> Datos proveídos por AccuWeather, Inc.  </p>
+
+            <div class="col-8"></div>
+
+        </div>
+    </main>
+
+
+
+    <script>
+        var temp, vel, deg, dir, iconid, favor, uvIndex, uvText, probabilidad, pronosIconid, pronosvel, pronosdir
+        var dirRegata = 0 //Este es 0 grados :: Desde donde viene ::
+
+        // API
+        const key = 'fH7nGPWxTvApKuk2QZi6P33E8js0qAwH'
+        const ciudad = '257012' //de la api de AccuWeather
+
+        const actual = async () => {
+            const base = 'https://dataservice.accuweather.com/currentconditions/v1/'
+            const response = await fetch(base + ciudad + '?apikey=' + key + '&language=es-mx&details=true')
+            const data = await response.json()
+
+            return data
+        }
+
+        actual()
+            .then(data => {
+                data = data[0]
+                temp = data.Temperature.Metric.Value
+                vel = data.Wind.Speed.Metric.Value
+                deg = data.Wind.Direction.Degrees
+                dir = data.Wind.Direction.Localized
+                iconid = data.WeatherIcon
+                uvIndex = data.UVIndex
+                uvText = data.UVIndexText
+
+                favor = parseInt(Math.abs(dirRegata - parseInt(deg)))
+
+                if (315 <= favor || favor <= 45) {
+                    favor = 'a favor'
+                } else if (135 <= favor || favor <= 225) {
+                    favor = 'en contra'
+                } else {
+                    favor = 'de costado'
+                }
+
+                var icon = ''
+                switch (iconid) {
+                    case 1:
+                        icon = '<i class="fas fa-sun"></i>'
+                        break
+                    case 2:
+                        icon = '<i class="fas fa-sun"></i>'
+                        break
+                    case 3:
+                        icon = '<i class="fas fa-sun"></i>'
+                        break
+
+                    case 4:
+                        icon = '<i class="fas fa-cloud-sun"></i>'
+                        break
+                    case 5:
+                        icon = '<i class="fas fa-cloud-sun"></i>'
+                        break
+                    case 6:
+                        icon = '<i class="fas fa-cloud-sun"></i>'
+                        break
+
+                    case 7:
+                        icon = '<i class="fas fa-cloud"></i>'
+                        break
+                    case 8:
+                        icon = '<<i class="fas fa-cloud"></i>'
+                        break
+
+                    case 11:
+                        icon = '<i class="fas fa-smog"></i>'
+                        break
+
+                    case 12:
+                        icon = '<i class="fas fa-cloud-rain"></i>'
+                        break
+
+                    case 13:
+                        icon = '<i class="fas fa-cloud-sun-rain"></i>'
+                        break
+                    case 14:
+                        icon = '<i class="fas fa-cloud-sun-rain"></i>'
+                        break
+                    case 16:
+                        icon = '<i class="fas fa-cloud-sun-rain"></i>'
+                        break
+                    case 17:
+                        icon = '<i class="fas fa-cloud-sun-rain"></i>'
+                        break
+                    case 20:
+                        icon = '<i class="fas fa-cloud-sun-rain"></i>'
+                        break
+                    case 21:
+                        icon = '<i class="fas fa-cloud-sun-rain"></i>'
+                        break
+
+                    case 15:
+                        icon = '<i class="fas fa-bolt"></i>'
+                        break
+                    case 41:
+                        icon = '<i class="fas fa-bolt"></i>'
+                        break
+                    case 42:
+                        icon = '<i class="fas fa-bolt"></i>'
+                        break
+
+                    case 18:
+                        icon = '<i class="fas fa-cloud-showers-heavy"></i>'
+                        break
+                    case 19:
+                        icon = '<i class="fas fa-cloud-showers-heavy"></i>'
+                        break
+
+                    case 22:
+                        icon = '<i class="fas fa-snowflake"></i>'
+                        break
+                    case 23:
+                        icon = '<i class="fas fa-snowflake"></i>'
+                        break
+                    case 24:
+                        icon = '<i class="fas fa-snowflake"></i>'
+                        break
+                    case 25:
+                        icon = '<i class="fas fa-snowflake"></i>'
+                        break
+                    case 26:
+                        icon = '<i class="fas fa-snowflake"></i>'
+                        break
+                    case 29:
+                        icon = '<i class="fas fa-snowflake"></i>'
+                        break
+
+                    case 30:
+                        icon = '<i class="fas fa-temperature-high"></i>'
+                        break
+
+                    case 31:
+                        icon = '<i class="fas fa-temperature-low"></i>'
+                        break
+
+                    case 32:
+                        icon = '<i class="fas fa-wind"></i>'
+                        break
+
+                    case 33:
+                        icon = '<i class="fas fa-moon"></i>'
+                        break
+                    case 34:
+                        icon = '<i class="fas fa-moon"></i>'
+                        break
+
+                    case 35:
+                        icon = '<i class="fas fa-cloud-moon"></i>'
+                        break
+                    case 36:
+                        icon = '<i class="fas fa-cloud-moon"></i>'
+                        break
+                    case 37:
+                        icon = '<i class="fas fa-cloud-moon"></i>'
+                        break
+                    case 38:
+                        icon = '<i class="fas fa-cloud-moon"></i>'
+                        break
+
+                    case 39:
+                        icon = '<i class="fas fa-cloud-moon-rain"></i>'
+                        break
+                    case 40:
+                        icon = '<i class="fas fa-cloud-moon-rain"></i>'
+                        break
+                    case 43:
+                        icon = '<i class="fas fa-cloud-moon-rain"></i>'
+                        break
+                    case 44:
+                        icon = '<i class="fas fa-cloud-moon-rain"></i>'
+                        break
+                }
+
+                document.getElementById('temp').innerHTML = parseInt(temp) + '°C  ' + icon
+                document.getElementById('uv').innerHTML = 'UV: ' + uvIndex + ' (' + uvText + ')'
+                document.getElementById('viento').innerHTML = Math.round(vel) + ' km/h ' + dir + " (" + favor + ")"
+            })
+            .catch(err => console.log(err))
+
+        const pronostico = async () => {
+            const base = 'https://dataservice.accuweather.com/forecasts/v1/hourly/1hour/'
+            const response = await fetch(base + ciudad + '?apikey=' + key + '&language=es-mx&details=true&metric=true')
+            const data = await response.json()
+
+            return data
+        }
+
+        pronostico()
+            .then(data => {
+                data = data[0]
+                probabilidad = data.PrecipitationProbability
+                pronosIconid = data.WeatherIcon
+                pronosvel = data.Wind.Speed.Value
+                pronosdir = data.Wind.Direction.Localized
+
+                var icon = pronosIconid
+                switch (pronosIconid) {
+                    case 1:
+                        icon = '<i class="fas fa-sun"></i>'
+                        break
+                    case 2:
+                        icon = '<i class="fas fa-sun"></i>'
+                        break
+                    case 3:
+                        icon = '<i class="fas fa-sun"></i>'
+                        break
+
+                    case 4:
+                        icon = '<i class="fas fa-cloud-sun"></i>'
+                        break
+                    case 5:
+                        icon = '<i class="fas fa-cloud-sun"></i>'
+                        break
+                    case 6:
+                        icon = '<i class="fas fa-cloud-sun"></i>'
+                        break
+
+                    case 7:
+                        icon = '<i class="fas fa-cloud"></i>'
+                        break
+                    case 8:
+                        icon = '<<i class="fas fa-cloud"></i>'
+                        break
+
+                    case 11:
+                        icon = '<i class="fas fa-smog"></i>'
+                        break
+
+                    case 12:
+                        icon = '<i class="fas fa-cloud-rain"></i>'
+                        break
+
+                    case 13:
+                        icon = '<i class="fas fa-cloud-sun-rain"></i>'
+                        break
+                    case 14:
+                        icon = '<i class="fas fa-cloud-sun-rain"></i>'
+                        break
+                    case 16:
+                        icon = '<i class="fas fa-cloud-sun-rain"></i>'
+                        break
+                    case 17:
+                        icon = '<i class="fas fa-cloud-sun-rain"></i>'
+                        break
+                    case 20:
+                        icon = '<i class="fas fa-cloud-sun-rain"></i>'
+                        break
+                    case 21:
+                        icon = '<i class="fas fa-cloud-sun-rain"></i>'
+                        break
+
+                    case 15:
+                        icon = '<i class="fas fa-bolt"></i>'
+                        break
+                    case 41:
+                        icon = '<i class="fas fa-bolt"></i>'
+                        break
+                    case 42:
+                        icon = '<i class="fas fa-bolt"></i>'
+                        break
+
+                    case 18:
+                        icon = '<i class="fas fa-cloud-showers-heavy"></i>'
+                        break
+                    case 19:
+                        icon = '<i class="fas fa-cloud-showers-heavy"></i>'
+                        break
+
+                    case 22:
+                        icon = '<i class="fas fa-snowflake"></i>'
+                        break
+                    case 23:
+                        icon = '<i class="fas fa-snowflake"></i>'
+                        break
+                    case 24:
+                        icon = '<i class="fas fa-snowflake"></i>'
+                        break
+                    case 25:
+                        icon = '<i class="fas fa-snowflake"></i>'
+                        break
+                    case 26:
+                        icon = '<i class="fas fa-snowflake"></i>'
+                        break
+                    case 29:
+                        icon = '<i class="fas fa-snowflake"></i>'
+                        break
+
+                    case 30:
+                        icon = '<i class="fas fa-temperature-high"></i>'
+                        break
+
+                    case 31:
+                        icon = '<i class="fas fa-temperature-low"></i>'
+                        break
+
+                    case 32:
+                        icon = '<i class="fas fa-wind"></i>'
+                        break
+
+                    case 33:
+                        icon = '<i class="fas fa-moon"></i>'
+                        break
+                    case 34:
+                        icon = '<i class="fas fa-moon"></i>'
+                        break
+
+                    case 35:
+                        icon = '<i class="fas fa-cloud-moon"></i>'
+                        break
+                    case 36:
+                        icon = '<i class="fas fa-cloud-moon"></i>'
+                        break
+                    case 37:
+                        icon = '<i class="fas fa-cloud-moon"></i>'
+                        break
+                    case 38:
+                        icon = '<i class="fas fa-cloud-moon"></i>'
+                        break
+
+                    case 39:
+                        icon = '<i class="fas fa-cloud-moon-rain"></i>'
+                        break
+                    case 40:
+                        icon = '<i class="fas fa-cloud-moon-rain"></i>'
+                        break
+                    case 43:
+                        icon = '<i class="fas fa-cloud-moon-rain"></i>'
+                        break
+                    case 44:
+                        icon = '<i class="fas fa-cloud-moon-rain"></i>'
+                        break
+                }
+
+                document.getElementById('prob').innerHTML = icon + '&nbsp&nbsp&nbsp&nbsp'
+                    + probabilidad + '% <i class="fas fa-tint"></i>'
+                document.getElementById('pronosViento').innerHTML = Math.round(pronosvel) + ' km/h ' + pronosdir
+            })
+            .catch(err => console.log(err))
+
+        // // API //
+        // temp = '28'
+        // vel = '16.7'
+        // deg = '45'
+        // dir = 'NE'
+        // iconid = '6'
+        // uvIndex = '7'
+        // uvText = 'alto'
+        // probabilidad = '74'
+        // pronosIconid = '5'
+        // pronosvel = '16'
+        // pronosdir = 'NNE'
+
+    </script>
+</body>

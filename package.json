@@ -1,0 +1,39 @@
+{
+  "name": "lower-thirds-fepare",
+  "version": "1.0.0",
+  "description": "Rowing events broadcasts controller, as a complement for OBS for example. Record results and times with full accuracy to work within multiple devices",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js"
+  },
+  "keywords": [
+    "Broadcast",
+    "Sport Event",
+    "Lower Thirds",
+    "Rowing",
+    "Chronometer",
+    "OBS"
+  ],
+  "author": "Bruno Bordon",
+  "license": "ISC",
+  "dependencies": {
+    "animate.css": "^4.1.1",
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.3",
+    "npm": "^5.6.0",
+    "papaparse": "^5.3.1",
+    "passport": "^0.5.0",
+    "passport-local": "^1.0.0",
+    "precise-timer": "^1.0.1"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.15"
+  }
+}

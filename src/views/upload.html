@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>
+    Buenos dias
+  </title>
+  <meta charset="UTF-8">
+  <%- include('partials/head.html') %>
+
+</head>
+
+<body>
+  <%- include('partials/navigation.html') %>
+    <form action="/processFile" method="post" class="mx-auto m-5" style="width: 500px;" enctype="multipart/form-data">
+
+      <!-- ALERTA DE ERROR AL PARSEAR -->
+      <% if (alert=='errFormat' ) { %>
+        <div class="mb-3 alert alert-danger alert-dismissible animate__animated animate__shakeX" role="alert">
+          ERROR: Revisá el formato requerido <a href="#" class="alert-link">aquí</a>
+        </div>
+        <% } else if (alert=='exito' ) { %>
+          <div class="mb-3 alert alert-success alert-dismissible animate__animated animate__shakeX" role="alert">
+            Datos añadidos correctamente
+          </div>
+          <% } %>
+
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Grilla</label>
+              <input class="form-control" type="file" name="csvfile" accept=".csv" required>
+              <div id="emailHelp" class="form-text" charset="UTF-8">Debe tener el formato descrito <a href="">aquí</a>.
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Título</label>
+              <input class="form-control" name="titulo" required placeholder="Regata Aniversario">
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Fecha</label>
+              <input type="date" class="form-control" name="fecha" required>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label" required placeholder="Bahía de Asunción"> Sede </label>
+              <input class="form-control" name="sede">
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar</button>
+            <!-- ALERT -->
+
+    </form>
+
+    <%- include('partials/footer.html') %>
+</body>
+
+</html>

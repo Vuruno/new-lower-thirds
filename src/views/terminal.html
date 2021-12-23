@@ -1,0 +1,309 @@
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Terminal
+    </title>
+    <%- include('partials/head.html') %>
+</head>
+
+<body style="background-color: white;">
+    <div class="container-fluid p-0">
+        <div class="row m-0">
+            <div class="col-md-auto p-0 m-0">
+                <%- include('partials/sidebar.html') %>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <%- include('partials/navigation.html') %>
+                </div>
+
+                <main class="container-fluid mb-5" style="height: auto">
+                    <div class="row pt-1 pb-1 h-100 d-flex">
+                        <div class="col me-2 ms-0">
+                            <h1 id="titulo" class=""> </h1>
+                            <hr>
+                            <div class="mt-0">
+                                <form action="/Time" id="myForm" method="post" target="receiver">
+                                    <input name="canchaAct" id="canchaAct" value="1" hidden> </input>
+                                    <input name="timeAct" id="timeAct" value="0:00.00" hidden> </input>
+                                    <input name="posAct" id="posAct" value="1" hidden> </input>
+                                    <input name="regataAct" id="regataAct" value="1" hidden> </input>
+                                    <input name="RPMact" id="RPMact" value="00" hidden> </input>
+
+                                    <input name="ultActualizacion" id="ultActualizacion" value=0 hidden> </input>
+                                    <ul class="list-group list-group-flush text-center" id="canchas">
+                                    </ul>
+                                </form>
+                            </div>
+                            <div class="text-secondary vsmall fw-light fixed-bottom text-center"> Presione un num. para
+                                fijar posicion, alt + num. para tiempo</div>
+                        </div>
+                        <div class="col-3">
+                            <%- include('partials/rightbar.html') %>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <%- include('partials/footer.html') %>
+
+
+</body>
+
+<script>
+    //OBTENER Y COLOCAR DATOS QUE NO VARIAN EN TIEMPO
+    window.addEventListener('load', fetchGrilla().then(newGrilla => {
+        refrescar()
+        refreshSidebar()
+    }))
+
+    var output = 1
+    var posiciones = []
+    var idrm, timethen, remds //Variables para calcular rpm
+
+    //setInterval('refrescar()', 200)
+
+    //OBTENER DATOS QUE VARIAN EN TIEMPO
+    async function fetchGrilla() {
+        const response = await fetch('/grilla.json');
+        const newGrilla = await response.json();
+        return newGrilla;
+    }
+
+    //COLOCAR DATOS QUE VARIAN EN TIEMPO
+    async function refrescar() {
+        // document.getElementById('tituloRegata').innerHTML = 'Eskere'
+        fetchGrilla().then(newGrilla => {
+            //TITULO DE REGATA
+            var titulo = '(' +
+                newGrilla.data[output - 1].categoria.nro + ') ' +
+                newGrilla.data[output - 1].categoria.bote + ' ' +
+                newGrilla.data[output - 1].categoria.cat + ' ' +
+                newGrilla.data[output - 1].categoria.mf
+
+            document.getElementById("titulo").innerHTML = titulo
+            document.getElementById("regataAct").value = output
+
+            //LISTA DE CANCHAS
+            var listaCanchas = '<li class="list-group-item container fw-bold">' +
+                '<div class="row align-items-center justify-content-center">' +
+                '<div class="col-1">' +
+                'cancha' +
+                '</div>' +
+                '<div class="col">' +
+                'club' +
+                '</div>' +
+                '<div class="col-2 ">' +
+                '<button type="submit" class="btn btn-light fw-bold" onmouseover="this.innerHTML = ' +
+                "'rein.'" + '" onmouseout="this.innerHTML = ' + "'pos.'" +
+                '" onClick="reiniciarPos()"> pos. </button>' +
+                '</div>' +
+                '<div class="col-2">' +
+                '<button type="submit" class="btn btn-light fw-bold" onmouseover="this.innerHTML = ' +
+                "'reiniciar'" + '" onmouseout="this.innerHTML = ' + "'tiempo'" +
+                '" onClick="reiniciar()"> tiempo </button>' +
+                '</div>' +
+                '<div class="col-2">' +
+                '<button type="submit" class="btn btn-light fw-bold" onmouseover="this.innerHTML = ' +
+                "'rein.'" + '" onmouseout="this.innerHTML = ' + "'rpm'" +
+                '" onClick="reiniciarRPM()"> rpm </button>' +
+                '</div>' +
+                '</div>' +
+                '</li>'
+            let arrayDeCantidadDeCanchas = []
+            newGrilla.data[output - 1].canchas.forEach(function callback(value, index) {
+                arrayDeCantidadDeCanchas.push('')
+                listaCanchas = listaCanchas +
+                    '<li class="list-group-item container">' +
+                    '<div class="row">' +
+                    '<div class="col-1">' +
+                    parseInt(index + 1) + //cancha
+                    '</div>' +
+                    '<div class="col fs-6 fw-ligh">' +
+                    value.club + '<br> <p class="vsmall p-0 m-0 fw-light">' + value.nombres + '</p>' +
+                    '</div>' +
+                    '<div class="col-2">' +
+                    '<button id="p' + index + '" onClick="setPosicion(this)" class="btn btn-outline-success">' + value.posicion + '</button>' +
+                    '</div>' +
+
+                    '<div class="col-2">' +
+                    '<button type="button" id="t' + index + '" onClick="setTime(this)" class="btn btn-outline-info">' + value.tiempo + '</button>' +
+                    '</div>' +
+
+                    '<div class="col-2">' +
+                    '<button type="submit" id="rm' + index + '" onClick="setRPM(this)" class="btn btn-outline-warning">' + value.rpm + '</button>' +
+                    '</div>' +
+                    '</div>' +
+                    '</li>'
+            });
+            document.getElementById('timeAct').value = arrayDeCantidadDeCanchas
+            document.getElementById('posAct').value = arrayDeCantidadDeCanchas
+
+            document.getElementById('canchas').innerHTML = listaCanchas
+        })
+    }
+
+    function reiniciar() {
+        let tab = document.getElementById('tab' + output)
+        tab.innerHTML = '<b>' + tab.innerText.split('.')[0] + '.</b>' + tab.innerText.split('.')[1].split('(')[0]
+
+        posiciones = []
+        document.getElementById('timeAct').value = 'reiniciar'
+        document.getElementById('ultActualizacion').value = Date.now()
+
+        for (i = 0; i < 7; i++) {
+            try {
+                document.getElementById('p' + i).innerHTML = '0'
+                document.getElementById('t' + i).innerHTML = '0:00.00'
+            } catch (e) { }
+        }
+    }
+
+    function reiniciarPos() {
+
+        posiciones = []
+        document.getElementById('posAct').value = 'reiniciar'
+
+        for (i = 0; i < 7; i++) {
+            try {
+                document.getElementById('p' + i).innerHTML = '0'
+            } catch (e) { }
+        }
+    }
+
+    function reiniciarRPM() {
+
+        document.getElementById('RPMact').value = 'reiniciar'
+
+        for (i = 0; i < 7; i++) {
+            try {
+                document.getElementById('rm' + i).innerHTML = '00'
+            } catch (e) { }
+        }
+    }
+
+    function setTime(that) {
+        let arrayDeCantidadDeCanchas = document.getElementById('timeAct').value.split(',')
+
+        time = document.getElementById('chrono').innerText
+        // document.getElementById('canchaAct').value = that.id.charAt(1)
+        document.getElementById('RPMact').value = ''
+        // document.getElementById('posAct').value = ''
+        // document.getElementById('timeAct').value = that.innerText
+
+
+        if (time != '0:00.00') {
+            that.innerHTML = time
+
+            for (i in arrayDeCantidadDeCanchas) {
+                let idToSearch = 't' + i
+                arrayDeCantidadDeCanchas[i] = document.getElementById(idToSearch).innerText
+            }
+
+            document.getElementById('timeAct').value = arrayDeCantidadDeCanchas
+
+            let tab = document.getElementById('tab' + output)
+            tab.innerHTML = '<b>' + tab.innerText.split('.')[0] + '.</b>' + tab.innerText.split('.')[1].split('(')[0] + ' (T)'
+
+            let idOfPos = 'p' + that.id.charAt(1)
+            idOfPos = document.getElementById(idOfPos)
+            setPosicion(idOfPos, time)
+        }
+    }
+
+    function setPosicion(that, time = '') {
+        let arrayDeCantidadDeCanchas = document.getElementById('timeAct').value.split(',')
+        let tiemp = 't' + that.id.charAt(1)
+        tiemp = document.getElementById(tiemp).innerText
+        document.getElementById('canchaAct').value = that.id.charAt(1)
+
+        document.getElementById('RPMact').value = ''
+        // document.getElementById('timeAct').value = time
+
+        if (that.innerText == '0') {
+            posiciones.push(that.id)
+            that.innerHTML = posiciones.length
+        } else {
+            reiniciarPos()
+            for (i of posiciones) {
+                document.getElementById(i).innerHTML = '0'
+            }
+            posiciones = [that.id]
+            that.innerHTML = '1'
+        }
+
+        for (i in arrayDeCantidadDeCanchas) {
+            let id = 'p' + i
+            arrayDeCantidadDeCanchas[i] = document.getElementById(id).innerText
+        }
+
+        document.getElementById('posAct').value = arrayDeCantidadDeCanchas
+        console.log(arrayDeCantidadDeCanchas)
+        document.getElementById("myForm").submit();
+    }
+
+    function setRPM(that) {
+
+        var time = Date.now()
+        document.getElementById('canchaAct').value = that.id.charAt(2)
+
+        // document.getElementById('posAct').value = ''
+        // document.getElementById('timeAct').value = ''
+
+        if (that.id == idrm) {
+            remds = remds + 1
+            let rpm = parseInt(60 / (((time - timethen) / 1000)) * remds)
+            document.getElementById('RPMact').value = rpm
+            that.innerHTML = rpm
+        } else {
+            remds = 0
+            idrm = that.id
+            timethen = time
+            document.getElementById('RPMact').value = '00'
+            that.innerHTML = '......'
+        }
+    }
+
+    function setOutput(id, that) {
+        document.getElementById('titulo').innerHTML = '<div class="spinner-grow text-info" role="status"> <span class="sr-only">Loading...</span> </div> Cargando... '
+        document.getElementById('canchas').innerHTML = ''
+        document.getElementById('output').value = id
+        that.classList.add('active');
+        document.getElementById('tab' + output).classList.remove('active');
+
+        output = id
+        posiciones = []
+
+        refrescar()
+    }
+
+    window.addEventListener("keydown", function (event) {
+        if (event.defaultPrevented) {
+            return; // Do nothing if the event was already processed
+        }
+
+        if (event.altKey) {
+            if (Number(event.key)) {
+                let tiempId = 't' + parseInt(Number(event.key) - 1)
+                try {
+                    tiempId = document.getElementById(tiempId)
+                    setTime(tiempId)
+                } catch (e) { }
+
+            }
+
+        } else if (Number(event.key)) {
+            let posId = 'p' + parseInt(Number(event.key) - 1)
+            try {
+                posId = document.getElementById(posId)
+                setPosicion(posId)
+            } catch (e) { }
+
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,228 @@
+<form action="/setOutput" method="post" target="receiver">
+  <div class="list-group mb-5">
+    <input type="text" name="output" id="output" value="1" hidden> </input>
+    <input type="text" name="vista" id="vista" value="none" hidden> </input>
+
+    <a onClick="setVista(this)" class="list-group-item list-group-item-action" id="1" data-bs-toggle="list"
+      href="#list-home" role="tab" aria-controls="list-home" disabled> Clima </a>
+
+    <a onClick="setVista(this)" class="list-group-item list-group-item-action" id="2" data-bs-toggle="list"
+      href="#list-home" role="tab" aria-controls="list-home" disabled> Durante Regata </a>
+
+    <a onClick="setVista(this)" class="list-group-item list-group-item-action" id="3" data-bs-toggle="list"
+      href="#list-home" role="tab" aria-controls="list-home" disabled> Remeros </a>
+
+    <a onClick="setVista(this)" class="list-group-item list-group-item-action" id="4" data-bs-toggle="list"
+      href="#list-home" role="tab" aria-controls="list-home" disabled> Resultados </a>
+
+    <button type="submit" class="btn btn-outline-secondary text-start mt-3">Cambiar</button>
+  </div>
+
+</form>
+
+<!-- <div class="h7" style="font-size: 0.5em; font-weight: lighter; color: rgb(41, 135, 163);"> Timer con delay de 3 seg.
+  Solo de referencia.<br>Tiempo registrado tiene 10ms de precisión </div> -->
+
+<div id="chronobox" class="list-group border bg-info border-5 pb-2">
+  <div class="row">
+    <form action="/Chrono" id="tiempEnChrono" method="post" target="receiver">
+      <input type="text" name='valueChrono' id='valueChrono' value="0" hidden> </input>
+      <div class="col align-self-center">
+        <p id="chrono" class="fs-1 m-0 text-center text-white" name="time"> 0:00.00 </p>
+      </div>
+
+      <div class="col align-self-center d-grid gap-2">
+        <button type="button" id="chronobutton" onclick="triggerTimer()" class="btn btn-light ms-2 me-2"> Iniciar
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<iframe name="receiver" id="receiver" hidden></iframe>
+
+<script>
+  const timer = document.getElementById('chrono');
+  var stoptime = 0 //0: stop, 1: seguro?, 2: iniciado
+  var start = '0'
+  var auxStarted = false // (lógica de esta variable no intuitiva)
+  myLastRefresh = '0'
+
+  setInterval('getStatus()', 5000)
+
+  //OBTENER DATOS QUE VARIAN EN TIEMPO
+  async function fetchStatus() {
+    const response = await fetch('/status.json');
+    const newGrilla = await response.json();
+    return newGrilla;
+  }
+
+  //COLOCAR DATOS QUE VARIAN EN TIEMPO
+  async function getStatus() {
+    fetchStatus().then(data => {
+      if (data.refresh != myLastRefresh) {
+        myLastRefresh = data.refresh
+        refrescar()
+        refreshSidebar()
+      }
+
+      if (data.start.charAt(0) != 'r') {
+
+        // INICIAR CRHONO (Lógica no intuitiva)
+        if (data.start == '0' && !auxStarted && stoptime == 2) {
+          stoptime = 1
+          triggerTimer('1')
+          refrescar()
+          refreshSidebar()
+        }
+        if (data.start != '0' && !auxStarted && stoptime == 0) {
+          triggerTimer(data.start)
+        }
+
+        if (auxStarted && stoptime == 2) {
+          auxStarted = false
+        }
+        if (auxStarted && stoptime == 0) {
+          auxStarted = false
+        }
+      }
+    })
+  }
+
+  var actTime = async () => {
+    const response = await fetch('https://worldtimeapi.org/api/timezone/America/Asuncion')
+    const data = await response.json()
+    var APInow = data.unixtime
+    var iso = data.datetime
+    iso = iso.split('.')[1].split('-')[0].slice(0, 3)
+    APInow = parseInt(APInow + '' + iso)
+
+    return APInow
+  }
+
+  async function triggerTimer(APIStart = '0') {
+
+    if (stoptime == 0) {
+      start = Date.now()
+      document.getElementById('chronobutton').innerHTML = ' <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sincronizando...'
+      document.getElementById('chronobutton').classList.add('disabled')
+      document.getElementById('chronobox').classList.add('bg-warning');
+      document.getElementById('chronobox').classList.remove('bg-info');
+      stoptime = 1 // 'Seguro?' No se usa 2 por incompatibilidades
+      timerCycle()
+
+      actTime().then(APInow => {
+        //ACTUALIZAR STATUS.JSON
+        // Avisar que comenzó
+        if (APIStart == '0') {
+          document.getElementById("valueChrono").value = APInow
+          document.getElementById("tiempEnChrono").submit()
+          auxStarted = true
+        } else {
+          var diferencia = APInow - Date.now()
+          start = APIStart - diferencia
+        }
+        stoptime = 2 // 'INICIADO'
+        document.getElementById('chronobutton').classList.remove('disabled')
+        document.getElementById('chronobutton').innerHTML = 'Parar y Reiniciar'
+      })
+    }
+
+    else if (stoptime == 2) {
+      document.getElementById('chronobutton').classList.remove('disabled')
+      stoptime = 1 // 'SEGURO?'
+      document.getElementById('chronobutton').innerHTML = '¿Seguro?'
+      document.getElementById('chronobutton').classList.add('btn-danger');
+      document.getElementById('chronobutton').classList.remove('btn-light');
+      // SI SE SACA EL PUNTERO DEL BOTON
+      document.getElementById('chronobutton').addEventListener("mouseout", function () {
+        document.getElementById('chronobutton').classList.add('btn-light');
+        document.getElementById('chronobutton').classList.remove('btn-danger');
+        if (stoptime == 1) {
+          document.getElementById('chronobutton').innerHTML = 'Parar y Reiniciar'
+          stoptime = 2 // 'INICIADO'
+        }
+      })
+    }
+
+    else {
+      '// Avisar que terminó'
+      start = '0'
+      if (APIStart == '0') {
+        document.getElementById("valueChrono").value = '0'
+        document.getElementById("tiempEnChrono").submit()
+        auxStarted = true
+      }
+      timer.innerHTML = "0:00.00";
+      stoptime = 0;
+      hr = 0;
+      sec = 0;
+      min = 0;
+
+      document.getElementById('chronobutton').innerHTML = 'Iniciar'
+      document.getElementById('chronobutton').classList.add('btn-light');
+      document.getElementById('chronobutton').classList.remove('btn-danger');
+      document.getElementById('chronobox').classList.add('bg-info');
+      document.getElementById('chronobox').classList.remove('bg-warning');
+
+    }
+  }
+
+  function timerCycle(that) {
+    if (stoptime == 2 || stoptime == 1) {
+      let elapsed = Date.now() - start
+
+      min = parseInt(elapsed / 60000);
+      sec = parseInt((elapsed / 1000) - (60 * min));
+      dec = parseInt((elapsed / 10) - (6000 * min) - (100 * sec));
+
+      if (sec < 10 || sec == 0) {
+        sec = '0' + sec;
+      }
+      if (dec < 10 || dec == 0) {
+        dec = '0' + dec;
+      }
+      timer.innerHTML = min + ':' + sec + '.' + dec;
+      // timer.innerHTML = aproxStart
+
+      setTimeout("timerCycle()", 10);
+    }
+  }
+
+  // function setElapse(that) {
+  //   that.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <span class="visually-hidden">Loading...</span>'
+  //   that.classList.add('disabled')
+
+  //   actTime(that.id, Date.now()).then(result => {
+  //     console.log('03 '+ result[0] + ' ' + result[1])
+  //     timenow = result[0]
+  //     let ResId = result[1]
+  //     let elapsed = parseInt(timenow) - parseInt(start)
+
+  //     min = parseInt(elapsed / 60000);
+  //     sec = parseInt((elapsed / 1000) - (60 * min));
+  //     dec = parseInt((elapsed / 10) - (6000 * min) - (100 * sec));
+
+  //     if (sec < 10 || sec == 0) {
+  //       sec = '0' + sec;
+  //     }
+  //     if (dec < 10 || dec == 0) {
+  //       dec = '0' + dec;
+  //     }
+
+
+  //     document.getElementById('timeAct').value = min + ':' + sec + '.' + dec
+  //     document.getElementById('canchaAct').value = ResId
+  //     document.getElementById("myForm").submit();
+
+  //     let TimeId = 't' + ResId
+  //     document.getElementById(TimeId).innerHTML = min + ':' + sec + '.' + dec
+  //     document.getElementById(TimeId).classList.remove('disabled')
+  //   })
+  // }
+
+  function setVista(that) {
+    document.getElementById('vista').value = that.innerText
+  }
+</script>

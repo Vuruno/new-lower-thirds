@@ -1,0 +1,54 @@
+<!-- Custom styles for this template -->
+<link href="/styles/sidebars.css" rel="stylesheet">
+
+<main>
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+        <a href="/" class="text-center  link-dark text-decoration-none">
+            <span class="fs-5 text-center">
+                <div id='tituloRegata'> <%= grilla.titulo %> </div>
+            </span>
+        </a>
+        <hr>
+        <div class="scrollarea">
+            <ul class="nav nav-pills flex-column mb-auto" id="listMenu">
+
+            </ul>
+
+        </div>
+    </div>
+
+
+    <div class="b-example-divider"></div>
+</main>
+
+<script>
+
+    
+    function refreshSidebar() {
+        fetchGrilla().then(newGrilla => {
+            document.getElementById('tituloRegata').innerHTML = newGrilla.titulo
+            var listMenu = ''
+            newGrilla.data.forEach(function (item) {
+                listMenu = listMenu + '<button type="button" onclick="setOutput(' + item.categoria.nro + ',this)" ' +
+                    'class="nav-link link-dark text-decoration-none text-start >" id="tab' + item.categoria.nro + '" ' +
+                    'style="cursor: pointer; text-align: left;"> ' +
+                    '<b>' +
+                    item.categoria.nro + '.' +
+                    '</b> &nbsp ' + item.categoria.bote + ' ' +
+                    item.categoria.cat + ' ' +
+                    item.categoria.mf
+
+                if (item.canchas[0].posicion != 0 || item.canchas[0].tiempo != "0:00.00") {
+                    listMenu = listMenu + ' (T)'
+                }
+
+                listMenu = listMenu + ' </button>'
+            })
+            document.getElementById("listMenu").innerHTML = listMenu
+            let tab = 'tab' + output
+            document.getElementById(tab).classList.add('active');
+        })
+    }
+</script>
+
+<script src="sidebars.js"></script>
