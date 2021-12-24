@@ -27,7 +27,7 @@ const upload = multer({ storage: storage })
 // routers
 //GET METHODS
 router.get('/', (req, res, next) => {
-  res.redirect('/terminal')
+  res.redirect('/terminal/1')
 })
 
 router.get('/agregar/:error', (req, res, next) => {
@@ -56,7 +56,7 @@ router.get('/terminal', (req, res) => {
     return reject()
   }
 
-  res.render('terminal.html', { titulo: grilla.titulo })
+  res.render( 'terminal.html', { titulo: grilla.titulo, actualServerTime: Date.now() } )
 })
 
 //ERROR

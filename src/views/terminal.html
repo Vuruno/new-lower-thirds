@@ -5,6 +5,9 @@
     </title>
     <%- include('partials/head.html') %>
 </head>
+<script>
+    var horaAlCargar = Date.now()
+</script>
 
 <body style="background-color: white;">
     <div class="container-fluid p-0">
@@ -17,7 +20,7 @@
                     <%- include('partials/navigation.html') %>
                 </div>
 
-                <main class="container-fluid mb-5" style="height: auto">
+                <main class="container-fluid mb-0" style="height: auto">
                     <div class="row pt-1 pb-1 h-100 d-flex">
                         <div class="col me-2 ms-0">
                             <h1 id="titulo" class=""> </h1>
@@ -118,25 +121,32 @@
                 arrayDeCantidadDeCanchas.push('')
                 listaCanchas = listaCanchas +
                     '<li class="list-group-item container">' +
-                    '<div class="row">' +
-                    '<div class="col-1">' +
-                    parseInt(index + 1) + //cancha
-                    '</div>' +
-                    '<div class="col fs-6 fw-ligh">' +
-                    value.club + '<br> <p class="vsmall p-0 m-0 fw-light">' + value.nombres + '</p>' +
-                    '</div>' +
-                    '<div class="col-2">' +
-                    '<button id="p' + index + '" onClick="setPosicion(this)" class="btn btn-outline-success">' + value.posicion + '</button>' +
-                    '</div>' +
+                        '<div class="row">' +
+                            '<div class="col-6">' +
+                                '<div class="row">' +
+                                    '<div class="col-1">' +
+                                        parseInt(index + 1) + //cancha
+                                    '</div>' +
+                                    '<div class="col fs-6 fw-ligh">' +
+                                        value.club +
+                                    '</div>' +
+                                '</div>' +
+                                '<div class="row">' +
+                                    '<p class="p-0 m-0 fw-light text-center" style="font-size: 0.6em">' + value.nombres + '</p>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="col-2">' +
+                                '<button id="p' + index + '" onClick="setPosicion(this)" class="btn btn-outline-success">' + value.posicion + '</button>' +
+                            '</div>' +
 
-                    '<div class="col-2">' +
-                    '<button type="button" id="t' + index + '" onClick="setTime(this)" class="btn btn-outline-info">' + value.tiempo + '</button>' +
-                    '</div>' +
+                            '<div class="col-2">' +
+                                '<button type="button" id="t' + index + '" onClick="setTime(this)" class="btn btn-outline-info">' + value.tiempo + '</button>' +
+                            '</div>' +
 
-                    '<div class="col-2">' +
-                    '<button type="submit" id="rm' + index + '" onClick="setRPM(this)" class="btn btn-outline-warning">' + value.rpm + '</button>' +
-                    '</div>' +
-                    '</div>' +
+                            '<div class="col-2">' +
+                                '<button type="submit" id="rm' + index + '" onClick="setRPM(this)" class="btn btn-outline-warning">' + value.rpm + '</button>' +
+                            '</div>' +
+                        '</div>' +
                     '</li>'
             });
             document.getElementById('timeAct').value = arrayDeCantidadDeCanchas
