@@ -27,7 +27,7 @@ const upload = multer({ storage: storage })
 // routers
 //GET METHODS
 router.get('/', (req, res, next) => {
-  res.redirect('/terminal/1')
+  res.redirect('/terminal')
 })
 
 router.get('/agregar/:error', (req, res, next) => {
@@ -66,22 +66,34 @@ router.get('/404', (req, res, next) => {
 
 // Visualizadores
 router.get('/clima', (req, res, next) => {
-  res.render('./visualizadores/clima.html')
+  res.render('./visualizadores/Clima.html')
 })
 
-router.get('/duranteregata', (req, res, next) => {
-  res.render('./visualizadores/duranteRegata.html')
+router.get('/compitiendo', (req, res, next) => {
+  res.render('./visualizadores/Compitiendo.html')
 })
 
-router.get('/nombres', (req, res, next) => {
-  res.render('./visualizadores/nombres.html')
+router.get('/tripulacion', (req, res, next) => {
+  res.render('./visualizadores/Tripulación.html')
 })
 
 router.get('/resultados', (req, res, next) => {
-  res.render('./visualizadores/resultados.html')
+  res.render('./visualizadores/Resultados.html')
+})
+
+router.get('/visualizador', (req, res, next) => {
+  res.redirect('/visualizador/0')
+})
+
+router.get('/visualizador/:start', (req, res, next) => {
+  res.render('./visualizadores/visualizador.html', {vista: jsonUpdater.getVista(), myLastRefresh: req.params.start})
 })
 
 //POST METHODS
+router.post('/setOutput', function (req, res, next) {
+  jsonUpdater.output(req.body.output, req.body.vista)
+})
+
 router.post('/processFile', upload.single('csvfile'), function (req, res, next) {
   const reject = () => {
     res.setHeader('www-authenticate', 'Basic')
@@ -116,12 +128,12 @@ router.post('/Time', function (req, res, next) {
     req.body.posAct, req.body.timeAct, req.body.RPMact, req.body.ultActualizacion)
 })
 
-router.post('/setOutput', function (req, res, next) {
-  jsonUpdater.output(req.body.output, req.body.vista)
-})
-
 router.post('/Chrono', function (req, res, next) {
   jsonUpdater.chrono(req.body.valueChrono)
+})
+
+router.post('/refreshVisualizador', function (req, res, next) {
+  res.redirect('/visualizador/' + req.body.myLastRefresh)
 })
 
 ////////////////////////

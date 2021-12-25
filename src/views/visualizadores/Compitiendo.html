@@ -1,113 +1,12 @@
 <head>
     <meta charset="UTF-8">
     <title>
-        Clima
+        Compitiendo
     </title>
     <%- include('../partials/head.html') %>
         <script src="/scripts/clock.js"></script>
         <link href="/styles/visualizadores.css" rel="stylesheet">
 </head>
-
-<body>
-    <div class="container-fluid h-100">
-        <div class="row w-100 align-items-end ps-0 mb-3">
-            <div class="col-1"></div>
-            <div class="col-10">
-            </div>
-
-            <div class="col-1 fs-5 p-0 text-center contenedor" style="color: white;">
-                <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 316.3 53.62">
-                    <defs>
-                        <style>
-                            .cls-2 {
-                                fill: #036;
-                            }
-                        </style>
-                    </defs>
-                    <path class="cls-2"
-                        d="M7063.76,7532.07h162.95c79.89,0,76.66-53.61,76.66-53.61H6987.1S6983.87,7532.07,7063.76,7532.07Z"
-                        transform="translate(-6987.08 -7478.46)" />
-                </svg>
-                <!-- RELOJ -->
-                <p id="clock" class="text-center dentroSVG h6" style="font-weight: normal;">
-                    00:00:00
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="row w-100 align-items-end ps-0 mb-3 animate__animated animate__fadeInLeft">
-            <div class="col-3 fs-5 contenedor" style="background-color: #660000;">
-                <p id="antRegata" class="text-center h6" style="color: white;"> </p>
-            </div>
-        </div>
-
-        <div class="row w-100 align-items-end ps-0 animate__animated animate__fadeInLeft">
-            <div class="col-3 fs-5 bg-black bg-opacity-75 contenedor">
-
-                <svg version="1.1" id="Layer_2_1_" xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 428.1 53.6"
-                    style="enable-background:new 0 0 428.1 53.6;" xml:space="preserve">
-                    <style type="text/css">
-                        .st0 {
-                            fill: #FFFFFF;
-                        }
-                    </style>
-                    <path class="st0" d="M76.6,53.6h274.7C431.2,53.6,428,0,428,0H0C0,0-3.2,53.6,76.6,53.6z" />
-                </svg>
-
-
-                <div class="text-left dentroSVG fw-bold h5" id="regataAct" style="color: #003366">
-                    . . . . . . . . . . . .
-                </div>
-
-            </div>
-        </div>
-
-        <div class="row w-100 align-items-end ps-0 animate__animated animate__fadeInLeft">
-            <div class="col-3 bg-black bg-opacity-75 fs-5 p-0 text-center" style="color: white;">
-
-                <div id="canchas">
-
-                </div>
-                <br>
-            </div>
-
-            <div class="col-8"></div>
-
-        </div>
-
-        <div class="row w-100 align-items-end ps-0 mt-3 animate__animated animate__fadeInLeft">
-            <div class="col-3 fs-5 contenedor" style="background-color: #660000;">
-                <p id="sigRegata" class="text-center h6" style="color: white;"> </p>
-            </div>
-        </div>
-
-        <div class="row w-100 align-items-end fixed-bottom mb-5" style="margin-left: 3em;">
-
-            <div class="col-3 fs-5 contenedor">
-
-                <svg version="1.1" id="Layer_2_1_" xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 428.1 53.6"
-                    style="margin-left: 3em ; margin-right: 4em ; enable-background:new 0 0 428.1 53.6;">
-                    <style type="text/css">
-                        .slc-2 {
-                            fill: #036;
-                        }
-                    </style>
-                    <path class="slc-2" d="M247.1,0H76.7C-3.2,0,0,53.6,0,53.6h323.7C323.7,53.6,326.9,0,247.1,0z" />
-                </svg>
-                <div class="row">
-                    <p id="timer" class="text-center dentroSVG h5" style="left: 40%; font-weight: normal; color: white">
-                        0:00
-                    </p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</body>
 
 <script>
     var timerIniciado = true
@@ -121,6 +20,15 @@
     window.addEventListener('load', fetchGrilla().then(newGrilla => {
         refrescar()
     }))
+
+    function toMilesimas(string) {
+        let tiempoDCS = string.split('.')
+        let decimas = tiempoDCS[1]
+        let segundos = tiempoDCS[0].split(':')[1]
+        let minutos = tiempoDCS[0].split(':')[0]
+        let res = parseInt(decimas) + parseInt(segundos) * 100 + parseInt(minutos) * 6000
+        return res
+    }
 
     setInterval('getStatus()', 5000)
 
@@ -187,13 +95,14 @@
 
             // ROTULO: pos. tiem. rpm.
             function getRotulo() {
-                for (i of newGrilla.data[output - 1].canchas) {
+                
+                for (i of newGrilla.data[output - 1].carriles) {
                     if (i.tiempo != '0:00.00') return 'tiempo'
                 }
-                for (i of newGrilla.data[output - 1].canchas) {
+                for (i of newGrilla.data[output - 1].carriles) {
                     if (i.rpm != '00') return 'r/m'
                 }
-                for (i of newGrilla.data[output - 1].canchas) {
+                for (i of newGrilla.data[output - 1].carriles) {
                     if (i.posicion != '0') return 'pos.'
                 }
                 return '&nbsp'
@@ -217,20 +126,25 @@
 
                 '</div>'
 
-            // CANCHAS
+            // carriles
             var j = 0
 
-            for (i of newGrilla.data[output - 1].canchas) {
+            let arrayDeTiempos = []
+            for (i of newGrilla.data[output - 1].carriles) {
+                let enMilesimas = toMilesimas(i.tiempo)
+                if(enMilesimas == 0) enMilesimas = 36000000
+                arrayDeTiempos.push(Number(enMilesimas))
+            }
+            var primeroTiempo = Math.min(...arrayDeTiempos)
+
+            for (i of newGrilla.data[output - 1].carriles) {
                 j = j + 1
 
                 function setData(k, label) {
                     if (label == 'tiempo') {
                         //CAMBIAR A DECIMAS
-                        let tiempoDCS = k.tiempo.split('.')
-                        let decimas = tiempoDCS[1]
-                        let segundos = tiempoDCS[0].split(':')[1]
-                        let minutos = tiempoDCS[0].split(':')[0]
-                        let tiempoTotal = parseInt(decimas) + parseInt(segundos) * 100 + parseInt(minutos) * 6000
+
+                        let tiempoTotal = toMilesimas(k.tiempo)
 
                         if (k.tiempo == '0:00.00') return ''
 
@@ -247,6 +161,8 @@
 
                             segundos = parseInt(tiempoTotal / 100)
                             decimas = parseInt(tiempoTotal % 100)
+
+                            if (decimas <= 9) decimas = '0' + decimas
 
                             if (minutos == 0) {
                                 tiempoTotal = '+ ' + segundos + '.' + decimas
@@ -293,13 +209,11 @@
                     '</div>'
             }
 
-            document.getElementById("canchas").innerHTML = clubes
+            document.getElementById("carriles").innerHTML = clubes
         })
     }
 
     //CHONOMETRO
-
-    const timer = document.getElementById('timer');
     var startTime
     function timerCycle() {
         if (start != '0') {
@@ -318,14 +232,115 @@
                     sec = '0' + sec;
                 }
 
-                timer.innerHTML = min + ':' + sec;
+                document.getElementById('timer').innerHTML = min + ':' + sec;
 
                 setTimeout("timerCycle()", 100);
             }
 
         } else {
             timerIniciado = true
-            timer.innerHTML = '0:00'
+            document.getElementById('timer').innerHTML = '0:00'
         }
     }
 </script>
+
+<body>
+    <div class="container-fluid h-100">
+        <div class="row w-100 align-items-end ps-0 mb-3">
+            <div class="col-1"></div>
+            <div class="col-10">
+            </div>
+
+            <div class="col-1 fs-5 p-0 text-center contenedor" style="color: white;">
+                <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 316.3 53.62">
+                    <defs>
+                        <style>
+                            .cls-2 {
+                                fill: #036;
+                            }
+                        </style>
+                    </defs>
+                    <path class="cls-2"
+                        d="M7063.76,7532.07h162.95c79.89,0,76.66-53.61,76.66-53.61H6987.1S6983.87,7532.07,7063.76,7532.07Z"
+                        transform="translate(-6987.08 -7478.46)" />
+                </svg>
+                <!-- RELOJ -->
+                <p id="clock" class="text-center dentroSVG h6" style="font-weight: normal;">
+                    00:00:00
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="row w-100 align-items-end ps-0 mb-3 animate__animated animate__fadeInLeft">
+            <div class="col-3 fs-5 contenedor" style="background-color: #660000;">
+                <p id="antRegata" class="text-center h6" style="color: white;"> </p>
+            </div>
+        </div>
+
+        <div class="row w-100 align-items-end ps-0 animate__animated animate__fadeInLeft">
+            <div class="col-3 fs-5 bg-black bg-opacity-75 contenedor">
+
+                <svg version="1.1" id="Layer_2_1_" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 428.1 53.6"
+                    style="enable-background:new 0 0 428.1 53.6;" xml:space="preserve">
+                    <style type="text/css">
+                        .st0 {
+                            fill: #FFFFFF;
+                        }
+                    </style>
+                    <path class="st0" d="M76.6,53.6h274.7C431.2,53.6,428,0,428,0H0C0,0-3.2,53.6,76.6,53.6z" />
+                </svg>
+
+
+                <div class="text-left dentroSVG fw-bold h5" id="regataAct" style="color: #003366">
+                    . . . . . . . . . . . .
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row w-100 align-items-end ps-0 animate__animated animate__fadeInLeft">
+            <div class="col-3 bg-black bg-opacity-75 fs-5 p-0 text-center" style="color: white;">
+
+                <div id="carriles">
+
+                </div>
+                <br>
+            </div>
+
+            <div class="col-8"></div>
+
+        </div>
+
+        <div class="row w-100 align-items-end ps-0 mt-3 animate__animated animate__fadeInLeft">
+            <div class="col-3 fs-5 contenedor" style="background-color: #660000;">
+                <p id="sigRegata" class="text-center h6" style="color: white;"> </p>
+            </div>
+        </div>
+
+        <div class="row w-100 align-items-end fixed-bottom mb-5" style="margin-left: 3em;">
+
+            <div class="col-3 fs-5 contenedor">
+
+                <svg version="1.1" id="Layer_2_1_" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 428.1 53.6"
+                    style="margin-left: 3em ; margin-right: 4em ; enable-background:new 0 0 428.1 53.6;">
+                    <style type="text/css">
+                        .slc-2 {
+                            fill: #036;
+                        }
+                    </style>
+                    <path class="slc-2" d="M247.1,0H76.7C-3.2,0,0,53.6,0,53.6h323.7C323.7,53.6,326.9,0,247.1,0z" />
+                </svg>
+                <div class="row">
+                    <p id="timer" class="text-center dentroSVG h5" style="left: 40%; font-weight: normal; color: white">
+                        0:00
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>

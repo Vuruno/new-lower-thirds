@@ -34,7 +34,7 @@
                                     <input name="RPMact" id="RPMact" value="00" hidden> </input>
 
                                     <input name="ultActualizacion" id="ultActualizacion" value=0 hidden> </input>
-                                    <ul class="list-group list-group-flush text-center" id="canchas">
+                                    <ul class="list-group list-group-flush text-center" id="carriles">
                                     </ul>
                                 </form>
                             </div>
@@ -66,6 +66,7 @@
     var output = 1
     var posiciones = []
     var idrm, timethen, remds //Variables para calcular rpm
+    var arrayDeCantidadDeCanchas
 
     //setInterval('refrescar()', 200)
 
@@ -90,7 +91,7 @@
             document.getElementById("titulo").innerHTML = titulo
             document.getElementById("regataAct").value = output
 
-            //LISTA DE CANCHAS
+            //LISTA DE carriles
             var listaCanchas = '<li class="list-group-item container fw-bold">' +
                 '<div class="row align-items-center justify-content-center">' +
                 '<div class="col-1">' +
@@ -101,13 +102,13 @@
                 '</div>' +
                 '<div class="col-2 ">' +
                 '<button type="submit" class="btn btn-light fw-bold" onmouseover="this.innerHTML = ' +
-                "'rein.'" + '" onmouseout="this.innerHTML = ' + "'pos.'" +
-                '" onClick="reiniciarPos()"> pos. </button>' +
+                "'rein.'" + '" onmouseout="this.innerHTML = ' + "'pos.'; this.classList.remove('btn-warning'); this.classList.add('btn-light')" +
+                '" onClick="reiniciarPos(this)"> pos. </button>' +
                 '</div>' +
                 '<div class="col-2">' +
                 '<button type="submit" class="btn btn-light fw-bold" onmouseover="this.innerHTML = ' +
-                "'reiniciar'" + '" onmouseout="this.innerHTML = ' + "'tiempo'" +
-                '" onClick="reiniciar()"> tiempo </button>' +
+                "'reiniciar'" + '" onmouseout="this.innerHTML = ' + "'tiempo'; this.classList.remove('btn-warning'); this.classList.add('btn-light')" +
+                '" onClick="reiniciar(this)"> tiempo </button>' +
                 '</div>' +
                 '<div class="col-2">' +
                 '<button type="submit" class="btn btn-light fw-bold" onmouseover="this.innerHTML = ' +
@@ -116,71 +117,106 @@
                 '</div>' +
                 '</div>' +
                 '</li>'
-            let arrayDeCantidadDeCanchas = []
-            newGrilla.data[output - 1].canchas.forEach(function callback(value, index) {
+            arrayDeCantidadDeCanchas = []
+            newGrilla.data[output - 1].carriles.forEach(function callback(value, index) {
                 arrayDeCantidadDeCanchas.push('')
                 listaCanchas = listaCanchas +
                     '<li class="list-group-item container">' +
-                        '<div class="row">' +
-                            '<div class="col-6">' +
-                                '<div class="row">' +
-                                    '<div class="col-1">' +
-                                        parseInt(index + 1) + //cancha
-                                    '</div>' +
-                                    '<div class="col fs-6 fw-ligh">' +
-                                        value.club +
-                                    '</div>' +
-                                '</div>' +
-                                '<div class="row">' +
-                                    '<p class="p-0 m-0 fw-light text-center" style="font-size: 0.6em">' + value.nombres + '</p>' +
-                                '</div>' +
-                            '</div>' +
-                            '<div class="col-2">' +
-                                '<button id="p' + index + '" onClick="setPosicion(this)" class="btn btn-outline-success">' + value.posicion + '</button>' +
-                            '</div>' +
+                    '<div class="row">' +
+                    '<div class="col-6">' +
+                    '<div class="row">' +
+                    '<div class="col-1">' +
+                    parseInt(index + 1) + //carril
+                    '</div>' +
+                    '<div class="col fs-6 fw-ligh">' +
+                    value.club +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="row">' +
+                    '<p class="p-0 m-0 fw-light text-center" style="font-size: 0.6em">' + value.nombres + '</p>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="col-2">' +
+                    '<button id="p' + index + '" onClick="setPosicion(this)" class="btn btn-outline-success">' + value.posicion + '</button>' +
+                    '</div>' +
 
-                            '<div class="col-2">' +
-                                '<button type="button" id="t' + index + '" onClick="setTime(this)" class="btn btn-outline-info">' + value.tiempo + '</button>' +
-                            '</div>' +
+                    '<div class="col-2">' +
+                    '<button type="button" id="t' + index + '" onClick="setTime(this)" class="btn btn-outline-info">' + value.tiempo + '</button>' +
+                    '</div>' +
 
-                            '<div class="col-2">' +
-                                '<button type="submit" id="rm' + index + '" onClick="setRPM(this)" class="btn btn-outline-warning">' + value.rpm + '</button>' +
-                            '</div>' +
-                        '</div>' +
+                    '<div class="col-2">' +
+                    '<button type="submit" id="rm' + index + '" onClick="setRPM(this)" class="btn btn-outline-warning">' + value.rpm + '</button>' +
+                    '</div>' +
+                    '</div>' +
                     '</li>'
             });
             document.getElementById('timeAct').value = arrayDeCantidadDeCanchas
             document.getElementById('posAct').value = arrayDeCantidadDeCanchas
 
-            document.getElementById('canchas').innerHTML = listaCanchas
+            document.getElementById('carriles').innerHTML = listaCanchas
+
+            document.getElementById('vistaMostrando').innerHTML = newGrilla.actual.vista
+            document.getElementById('pruebaMostrando').innerHTML = newGrilla.actual.output
+
+            let tabDelOutput = document.getElementById('tab' + newGrilla.actual.output)
+            if (tabDelOutput.classList.contains("active")) {
+                tabDelOutput.classList.add('bg-danger')
+                tabDelOutput.classList.remove('text-danger')
+            } else {
+                tabDelOutput.classList.add('text-danger')
+            }
         })
     }
 
-    function reiniciar() {
-        let tab = document.getElementById('tab' + output)
-        tab.innerHTML = '<b>' + tab.innerText.split('.')[0] + '.</b>' + tab.innerText.split('.')[1].split('(')[0]
+    function reiniciar(that) {
+        if (that.innerText == 'seguro?') {
+            let tab = document.getElementById('tab' + output)
+            tab.innerHTML = '<b>' + tab.innerText.split('.')[0] + '.</b>' + tab.innerText.split('.')[1].split('(')[0]
 
-        posiciones = []
-        document.getElementById('timeAct').value = 'reiniciar'
-        document.getElementById('ultActualizacion').value = Date.now()
+            posiciones = []
+            let arrayDeReinicio = []
 
-        for (i = 0; i < 7; i++) {
-            try {
-                document.getElementById('p' + i).innerHTML = '0'
-                document.getElementById('t' + i).innerHTML = '0:00.00'
-            } catch (e) { }
+            for (i in arrayDeCantidadDeCanchas) {
+                arrayDeReinicio.push('r')
+            }
+
+            document.getElementById('timeAct').value = arrayDeReinicio
+            // document.getElementById('ultActualizacion').value = Date.now()
+
+            for (i = 0; i < 7; i++) {
+                try {
+                    document.getElementById('p' + i).innerHTML = '0'
+                    document.getElementById('t' + i).innerHTML = '0:00.00'
+                } catch (e) { }
+            }
+
+        } else {
+            that.innerHTML = 'seguro?'
+            that.classList.remove('btn-light')
+            that.classList.add('btn-warning')
         }
     }
 
-    function reiniciarPos() {
+    function reiniciarPos(that) {
+        if (that.innerText == 'seg.?') {
+            posiciones = []
+            let arrayDeReinicio = []
 
-        posiciones = []
-        document.getElementById('posAct').value = 'reiniciar'
+            for (i in arrayDeCantidadDeCanchas) {
+                arrayDeReinicio.push('r')
+            }
 
-        for (i = 0; i < 7; i++) {
-            try {
-                document.getElementById('p' + i).innerHTML = '0'
-            } catch (e) { }
+            document.getElementById('posAct').value = arrayDeReinicio
+
+            for (i = 0; i < 7; i++) {
+                try {
+                    document.getElementById('p' + i).innerHTML = '0'
+                } catch (e) { }
+            }
+        } else {
+            that.innerHTML = 'seg.?'
+            that.classList.remove('btn-light')
+            that.classList.add('btn-warning')
         }
     }
 
@@ -196,7 +232,7 @@
     }
 
     function setTime(that) {
-        let arrayDeCantidadDeCanchas = document.getElementById('timeAct').value.split(',')
+        let arrayTimes = document.getElementById('timeAct').value.split(',')
 
         time = document.getElementById('chrono').innerText
         // document.getElementById('canchaAct').value = that.id.charAt(1)
@@ -208,12 +244,12 @@
         if (time != '0:00.00') {
             that.innerHTML = time
 
-            for (i in arrayDeCantidadDeCanchas) {
+            for (i in arrayTimes) {
                 let idToSearch = 't' + i
-                arrayDeCantidadDeCanchas[i] = document.getElementById(idToSearch).innerText
+                arrayTimes[i] = document.getElementById(idToSearch).innerText
             }
 
-            document.getElementById('timeAct').value = arrayDeCantidadDeCanchas
+            document.getElementById('timeAct').value = arrayTimes
 
             let tab = document.getElementById('tab' + output)
             tab.innerHTML = '<b>' + tab.innerText.split('.')[0] + '.</b>' + tab.innerText.split('.')[1].split('(')[0] + ' (T)'
@@ -225,7 +261,7 @@
     }
 
     function setPosicion(that, time = '') {
-        let arrayDeCantidadDeCanchas = document.getElementById('timeAct').value.split(',')
+        let arrayPosiciones = document.getElementById('timeAct').value.split(',')
         let tiemp = 't' + that.id.charAt(1)
         tiemp = document.getElementById(tiemp).innerText
         document.getElementById('canchaAct').value = that.id.charAt(1)
@@ -245,13 +281,12 @@
             that.innerHTML = '1'
         }
 
-        for (i in arrayDeCantidadDeCanchas) {
+        for (i in arrayPosiciones) {
             let id = 'p' + i
-            arrayDeCantidadDeCanchas[i] = document.getElementById(id).innerText
+            arrayPosiciones[i] = document.getElementById(id).innerText
         }
 
-        document.getElementById('posAct').value = arrayDeCantidadDeCanchas
-        console.log(arrayDeCantidadDeCanchas)
+        document.getElementById('posAct').value = arrayPosiciones
         document.getElementById("myForm").submit();
     }
 
@@ -279,10 +314,14 @@
 
     function setOutput(id, that) {
         document.getElementById('titulo').innerHTML = '<div class="spinner-grow text-info" role="status"> <span class="sr-only">Loading...</span> </div> Cargando... '
-        document.getElementById('canchas').innerHTML = ''
+        document.getElementById('carriles').innerHTML = ''
         document.getElementById('output').value = id
+
+        document.getElementById('tab' + output).classList.remove('active')
+        document.getElementById('tab' + output).classList.remove('bg-danger')
         that.classList.add('active');
-        document.getElementById('tab' + output).classList.remove('active');
+
+        document.getElementById('pruebaMostrar').innerHTML = id
 
         output = id
         posiciones = []

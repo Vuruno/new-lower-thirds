@@ -34,77 +34,77 @@ function chrono(value) {
     guardarStatus(json)
 }
 
-function tiempo(regata, cancha, posicion, tiempo, rpm, actualizacion) {
-    // console.log(regata)
-    // console.log(cancha)
-    // console.log(posicion)
-    // console.log(tiempo)
-    // console.log(rpm)
-    // console.log(actualizacion)
-
+function tiempo(regata, carril, posicion, tiempo, rpm, actualizacion) {
     var json = getGrilla()
     var regata = parseInt(regata) - 1
 
     posicion = posicion.split(',')
     tiempo = tiempo.split(',')
 
-    if (posicion[0] == 'reiniciar') {
-        for (i in json.data[regata].canchas) {
-            json.data[regata].canchas[i].posicion = '0'
+    if (posicion[0] == 'r') {
+        for (i in json.data[regata].carriles) {
+            json.data[regata].carriles[i].posicion = '0'
         }
     } else if (posicion[0] != '') {
-        for (i in json.data[regata].canchas) {
-            json.data[regata].canchas[i].posicion = posicion[i]
+        for (i in json.data[regata].carriles) {
+            json.data[regata].carriles[i].posicion = posicion[i]
         }
     }
 
-    if (tiempo[0] == 'reiniciar') {
-        for (i in json.data[regata].canchas) {
-            json.data[regata].canchas[i].posicion = '0'
-            json.data[regata].canchas[i].tiempo = '0:00.00'
+    if (tiempo[0] == 'r') {
+        for (i in json.data[regata].carriles) {
+            json.data[regata].carriles[i].posicion = '0'
+            json.data[regata].carriles[i].tiempo = '0:00.00'
         }
     } else if (tiempo[0] != '') {
-        for (i in json.data[regata].canchas) {
-            json.data[regata].canchas[i].posicion = posicion[i]
-            json.data[regata].canchas[i].tiempo = tiempo[i]
+        for (i in json.data[regata].carriles) {
+            json.data[regata].carriles[i].tiempo = tiempo[i]
         }
     }
 
     if (rpm == 'reiniciar') {
-        for (i in json.data[regata].canchas) {
-            json.data[regata].canchas[i].rpm = '00'
+        for (i in json.data[regata].carriles) {
+            json.data[regata].carriles[i].rpm = '00'
         }
     } else if (rpm != '') {
-        json.data[regata].canchas[cancha].rpm = rpm
+        json.data[regata].carriles[carril].rpm = rpm
     }
 
     guardarGrilla(json)
 
     //SET ULTAMA ACTUALIZACION
     var json2 = getStatus()
-
-    if (json2.refresh == actualizacion) {
-        json2.start = 'r:' + Date.now()
-    } else {
+    if (actualizacion != '0') {
         json2.refresh = actualizacion
+    }
+    if (Date.now() - json2.start > 6000 || isNaN(Date.now() - json2.start)) {
+        json2.start = 'r:' + Date.now()
     }
     guardarStatus(json2)
 
 }
 
-function output(output) {
-    console.log('a')
+function output(output, vista) {
     var json = getGrilla()
     json.actual.output = output
+    json.actual.vista = vista
     guardarGrilla(json)
 
     //SET ULTAMA ACTUALIZACION
 
     var json2 = getStatus()
     json2.refresh = Date.now()
-    json2.start = 'r:' + Date.now()
+    
+    if (Date.now() - json2.start > 6000 || isNaN(Date.now() - json2.start)) {
+        json2.start = 'r:' + Date.now()
+    }
 
     guardarStatus(json2)
 }
 
-module.exports = { chrono, tiempo, output }
+function getVista() {
+    var json = getGrilla()
+    return json.actual.vista
+}
+
+module.exports = { chrono, tiempo, output, getVista }

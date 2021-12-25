@@ -7,6 +7,7 @@ var filex = 'a'
 var columnas, filas = []
 
 function toUpper(word) {
+    word = word.toLowerCase()
     var splited = word.split(' ')
     word = ''
 
@@ -144,7 +145,7 @@ function parseCancha(nro, cant) {
 }
 
 function parseJson(titulo, fecha, sede) {
-    let text = '{"actual": {\n"output": "1", \n"vista": "none", \n"chrono": false,\n"regata": 1\n},\n"titulo": "'
+    let text = '{"actual": {\n"output": "1", \n"vista": "Nada", \n"chrono": false,\n"regata": 1\n},\n"titulo": "'
         + titulo + '",\n"fecha": "' + fecha + '",\n"sede": "' + sede
         + '",\n"data": [\n'
     for (i in filas) {
@@ -156,7 +157,7 @@ function parseJson(titulo, fecha, sede) {
         else if (categoria.includes('2x') || categoria.includes('2-')) cant = 2
         else cant = 1
 
-        text = text + '{"categoria": ' + categoria + ',\n"canchas": ' + parseCancha(i, cant) + "},\n"
+        text = text + '{"categoria": ' + categoria + ',\n"carriles": ' + parseCancha(i, cant) + "},\n"
     }
     text = text.slice(0, -2) + "\n]\n}"
 

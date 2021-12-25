@@ -1,96 +1,12 @@
 <head>
     <meta charset="UTF-8">
     <title>
-        Nombres
+        Tripulación
     </title>
     <%- include('../partials/head.html') %>
         <script src="/scripts/clock.js"></script>
         <link href="/styles/visualizadores.css" rel="stylesheet">
 </head>
-
-<body>
-    <main>
-        <div class="row w-100 bg-black bg-opacity-75 m-0 align-items-center">
-            <div class="col-1"></div>
-
-            <div class="col text-center align-self-end fw-light h7 pt-3" style="color: white; font-kerning: none;">
-                <%= grilla.titulo %> &nbsp | &nbsp <%= grilla.fecha %> &nbsp | &nbsp <%= grilla.sede %>
-            </div>
-
-            <div class="col-1 fs-5 p-0 text-center contenedor" style="color: white;">
-                <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 316.3 53.62">
-                    <defs>
-                        <style>
-                            .cls-2 {
-                                fill: #036;
-                            }
-                        </style>
-                    </defs>
-                    <path class="cls-2"
-                        d="M7063.76,7532.07h162.95c79.89,0,76.66-53.61,76.66-53.61H6987.1S6983.87,7532.07,7063.76,7532.07Z"
-                        transform="translate(-6987.08 -7478.46)" />
-                </svg>
-                <!-- RELOJ -->
-                <p id="clock" class="text-center dentroSVG h6" style="font-weight: normal;">
-                    00:00:00
-                </p>
-
-            </div>
-        </div>
-
-        <div class="row w-100 m-0 ps-5 pe-5 align-items-center text-nowrap animate__animated animate__slideInDown"
-            style="background-color: #990000;">
-
-            <div class="col-4">
-                <div class="text-center h4" id="antRegata" style="color: white;">
-                </div>
-            </div>
-
-            <div class="col-4 p-0 contenedor m-0">
-                <svg id="Layer_3" data-name="Layer 3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 644.82 53.62">
-                    <defs>
-                        <style>
-                            .cls-1 {
-                                fill: #fff;
-                            }
-                        </style>
-                    </defs>
-                    <path class="cls-1"
-                        d="M7451.63,6767H6960.16c-79.89,0-76.66-53.62-76.66-53.62h644.79S7531.53,6767,7451.63,6767Z"
-                        transform="translate(-6883.49 -6713.35)" />
-                </svg>
-
-                <div class="dentroSVG text-center h3" id="regataAct" style="font-weight: bold; color: #990000;">
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="text-center h4" id="sigRegata" style="color: white;">
-                </div>
-            </div>
-        </div>
-
-        <div class="container-flex fixed-bottom animate__animated animate__slideInUp">
-            <!-- CANCHAS -->
-            <div id="canchas" class="row justify-content-md-center w-100 m-0 ps-5 pe-5 align-items-center text-nowrap">
-
-            </div>
-
-            <!-- CLUBES -->
-            <div id="clubes" class="row justify-content-md-center w-100 m-0 ps-5 pe-5 align-items-center text-nowrap"
-                style="background-color: #036;">
-
-            </div>
-
-            <!-- REMEROS -->
-            <div id="remeros"
-                class="row justify-content-md-center w-100 m-0 ps-5 pe-5 p-3 align-items-center bg-black bg-opacity-75 text-nowrap">
-
-            </div>
-        </div>
-
-    </main>
-
-</body>
 
 <script>
     myLastRefresh = '0'
@@ -161,12 +77,12 @@
             document.getElementById("antRegata").innerHTML = antRegata
 
             // CLUB Y REMEROS
-            let canchas = ''
+            let carriles = ''
             let clubes = ''
             let remeros = ''
-            for (i in newGrilla.data[output - 1].canchas) {
-                canchas = canchas + '<div class="col-2 text-center h6 text-justify" style="color: white">' +
-                    'cancha ' + parseInt(parseInt(i) + 1) +
+            for (i in newGrilla.data[output - 1].carriles) {
+                carriles = carriles + '<div class="col-2 text-center h6 text-justify" style="color: white">' +
+                    'carril ' + parseInt(parseInt(i) + 1) +
                     '</div>'
 
 
@@ -183,21 +99,105 @@
                     '</svg>' +
 
                     '<div class="dentroSVG text-center h3" id="regataAct" style="font-weight: bold; color: #036;">' +
-                    newGrilla.data[output - 1].canchas[i].club +
+                    newGrilla.data[output - 1].carriles[i].club +
                     '</div>' +
                     '</div>'
 
                 remeros = remeros + '<div class="col-2 text-center h5 fw-light text-wrap" style="color: white">'
-                for (j of newGrilla.data[output - 1].canchas[i].nombres) {
+                for (j of newGrilla.data[output - 1].carriles[i].nombres) {
                     remeros = remeros + '• ' + j + '<br>'
                 }
                 remeros = remeros + '</div>'
             }
 
-            document.getElementById('canchas').innerHTML = canchas
+            document.getElementById('carriles').innerHTML = carriles
             document.getElementById('clubes').innerHTML = clubes
             document.getElementById('remeros').innerHTML = remeros
         })
     }
 
 </script>
+
+<body>
+    <main>
+        <div class="row w-100 bg-black bg-opacity-75 m-0 align-items-center">
+            <div class="col-1"></div>
+
+            <div class="col text-center align-self-end fw-light h7 pt-3" style="color: white; font-kerning: none;">
+                <%= grilla.titulo %> &nbsp | &nbsp <%= grilla.fecha %> &nbsp | &nbsp <%= grilla.sede %>
+            </div>
+
+            <div class="col-1 fs-5 p-0 text-center contenedor" style="color: white;">
+                <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 316.3 53.62">
+                    <defs>
+                        <style>
+                            .cls-2 {
+                                fill: #036;
+                            }
+                        </style>
+                    </defs>
+                    <path class="cls-2"
+                        d="M7063.76,7532.07h162.95c79.89,0,76.66-53.61,76.66-53.61H6987.1S6983.87,7532.07,7063.76,7532.07Z"
+                        transform="translate(-6987.08 -7478.46)" />
+                </svg>
+                <!-- RELOJ -->
+                <p id="clock" class="text-center dentroSVG h6" style="font-weight: normal;">
+
+                </p>
+
+            </div>
+        </div>
+
+        <div class="row w-100 m-0 ps-5 pe-5 align-items-center text-nowrap animate__animated animate__slideInDown"
+            style="background-color: #990000;">
+
+            <div class="col-4">
+                <div class="text-center h4" id="antRegata" style="color: white;">
+                </div>
+            </div>
+
+            <div class="col-4 p-0 contenedor m-0">
+                <svg id="Layer_3" data-name="Layer 3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 644.82 53.62">
+                    <defs>
+                        <style>
+                            .cls-1 {
+                                fill: #fff;
+                            }
+                        </style>
+                    </defs>
+                    <path class="cls-1"
+                        d="M7451.63,6767H6960.16c-79.89,0-76.66-53.62-76.66-53.62h644.79S7531.53,6767,7451.63,6767Z"
+                        transform="translate(-6883.49 -6713.35)" />
+                </svg>
+
+                <div class="dentroSVG text-center h3" id="regataAct" style="font-weight: bold; color: #990000;">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="text-center h4" id="sigRegata" style="color: white;">
+                </div>
+            </div>
+        </div>
+
+        <div class="container-flex fixed-bottom animate__animated animate__slideInUp">
+            <!-- carriles -->
+            <div id="carriles" class="row justify-content-md-center w-100 m-0 ps-5 pe-5 align-items-center text-nowrap">
+
+            </div>
+
+            <!-- CLUBES -->
+            <div id="clubes" class="row justify-content-md-center w-100 m-0 ps-5 pe-5 align-items-center text-nowrap"
+                style="background-color: #036;">
+
+            </div>
+
+            <!-- REMEROS -->
+            <div id="remeros"
+                class="row justify-content-md-center w-100 m-0 ps-5 pe-5 p-3 align-items-center bg-black bg-opacity-75 text-nowrap">
+
+            </div>
+        </div>
+
+    </main>
+
+</body>

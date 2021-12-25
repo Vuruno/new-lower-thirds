@@ -1,0 +1,36 @@
+<head>
+    <meta charset="UTF-8">
+    <%- include('../partials/head.html') %>
+        <script src="/scripts/clock.js"></script>
+        <link href="/styles/visualizadores.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="row w-100 bg-black bg-opacity-75 m-0 align-items-center">
+        <div class="col-1"></div>
+
+        <div class="col text-center align-self-end fw-light h7 pt-3" style="color: white; font-kerning: none;">
+            <%= grilla.titulo %> &nbsp | &nbsp <%= grilla.fecha %> &nbsp | &nbsp <%= grilla.sede %>
+        </div>
+
+        <div class="col-1 fs-5 p-0 text-center contenedor" style="color: white;">
+            <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 316.3 53.62">
+                <defs>
+                    <style>
+                        .cls-2 {
+                            fill: #036;
+                        }
+                    </style>
+                </defs>
+                <path class="cls-2"
+                    d="M7063.76,7532.07h162.95c79.89,0,76.66-53.61,76.66-53.61H6987.1S6983.87,7532.07,7063.76,7532.07Z"
+                    transform="translate(-6987.08 -7478.46)" />
+            </svg>
+            <!-- RELOJ -->
+            <p id="clock" class="text-center dentroSVG h6" style="font-weight: normal;">
+                00:00:00
+            </p>
+
+        </div>
+    </div>
+</body>

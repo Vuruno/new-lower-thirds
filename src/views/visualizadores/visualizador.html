@@ -1,0 +1,43 @@
+<head>
+    <title>
+        Usar en obs 1920x1080
+    </title>
+    <link rel="icon" href="/logo fepare monocolor.png" type="image" sizes="16x16">
+</head>
+
+<body style="background-color: rgba(0,0,0,0);">
+
+    <form action="/refreshVisualizador" id="refreshVisualizador" method="post">
+        <input type="text" id="myLastRefresh" name="myLastRefresh" value="1" hidden>
+    </form>
+
+
+    <%- include( vista + '.html' ) %>
+</body>
+
+<iframe name="receiver" id="receiver" hidden></iframe>
+
+<script>
+    // OBTENER Y COLOCAR DATOS QUE NO VARIAN EN TIEMPO
+    // window.addEventListener('load', refrescar() )
+
+    setInterval('refreshYorN()', 2000)
+
+    //OBTENER DATOS QUE VARIAN EN TIEMPO
+    async function fetchStatusJSON() {
+        const response = await fetch('/status.json');
+        const newGrilla = await response.json();
+        return newGrilla;
+    }
+
+    //COLOCAR DATOS QUE VARIAN EN TIEMPO
+    async function refreshYorN() {
+        fetchStatusJSON().then(statusJSON => {
+            if ('<%= myLastRefresh %>' != statusJSON.refresh) {
+                document.getElementById('myLastRefresh').value = statusJSON.refresh
+                document.getElementById('refreshVisualizador').submit()
+            }
+        })
+    }
+
+</script>
