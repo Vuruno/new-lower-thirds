@@ -20,14 +20,14 @@
 
     <!-- <p class="m-1"> Mostrando: <br> <span class="badge fw-normal bg-danger rounded-pill" id="pruebaMostrando">
         1 </span> <span class="badge fw-normal bg-danger rounded-pill" id="vistaMostrando"> Vacío </span> </p> -->
-
-    <button type="submit" onClick="cambiarMostrando()" class="btn btn-outline-dark text-start mt-2"> Cambiar Vista <br>
-      <div class="text-danger"> ahora: <span class="badge fw-normal bg-danger rounded-pill" id="pruebaMostrando">
+        <div class="text-danger ps-2"> ahora: <span class="badge fw-normal bg-danger rounded-pill" id="pruebaMostrando">
           1 </span> <span class="badge fw-normal bg-danger rounded-pill" id="vistaMostrando"> Nada </span> </div>
-      <div class="fw-light"> luego: <span class="badge fw-normal bg-secondary rounded-pill" id="pruebaMostrar"> 1
+      <div class="text-secondary ps-2"> luego: <span class="badge fw-normal bg-secondary rounded-pill" id="pruebaMostrar"> 1
         </span>
         <span class="badge fw-normal bg-secondary rounded-pill" id="vistaMostrar"> Nada </span>
       </div>
+    <button type="submit" onClick="cambiarMostrando()" class="btn btn-outline-dark text-start mt-1"> Cambiar Vista <br>
+      
     </button>
   </div>
 
@@ -156,7 +156,7 @@
       document.getElementById('chronobutton').innerHTML = '¿Seguro?'
       document.getElementById('chronobutton').classList.add('btn-danger');
       document.getElementById('chronobutton').classList.remove('btn-light');
-      
+
       // SI SE SACA EL PUNTERO DEL BOTON
       document.getElementById('chronobutton').addEventListener("mouseout", function () {
         document.getElementById('chronobutton').classList.add('btn-light');

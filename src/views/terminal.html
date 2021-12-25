@@ -60,7 +60,6 @@
     //OBTENER Y COLOCAR DATOS QUE NO VARIAN EN TIEMPO
     window.addEventListener('load', fetchGrilla().then(newGrilla => {
         refrescar()
-        refreshSidebar()
     }))
 
     var output = 1
@@ -158,12 +157,39 @@
             document.getElementById('vistaMostrando').innerHTML = newGrilla.actual.vista
             document.getElementById('pruebaMostrando').innerHTML = newGrilla.actual.output
 
-            let tabDelOutput = document.getElementById('tab' + newGrilla.actual.output)
-            if (tabDelOutput.classList.contains("active")) {
-                tabDelOutput.classList.add('bg-danger')
-                tabDelOutput.classList.remove('text-danger')
+            document.getElementById(newGrilla.actual.vista).classList.remove('list-group-item-action')
+            document.getElementById(newGrilla.actual.vista).classList.add('list-group-item-danger')
+
+            //SIDEBAR STAFF
+            document.getElementById('tituloRegata').innerHTML = newGrilla.titulo
+            var listMenu = ''
+            newGrilla.data.forEach(function (item) {
+                listMenu = listMenu + '<button type="button" onclick="setOutput(' + item.categoria.nro + ',this)" ' +
+                    'class="nav-link link-dark text-decoration-none text-start >" id="tab' + item.categoria.nro + '" ' +
+                    'style="cursor: pointer; text-align: left;"> ' +
+                    '<b>' +
+                    item.categoria.nro + '.' +
+                    '</b> &nbsp ' + item.categoria.bote + ' ' +
+                    item.categoria.cat + ' ' +
+                    item.categoria.mf
+
+                if (item.carriles[0].posicion != 0 || item.carriles[0].tiempo != "0:00.00") {
+                    listMenu = listMenu + ' (T)'
+                }
+
+                listMenu = listMenu + ' </button>'
+            })
+            document.getElementById("listMenu").innerHTML = listMenu
+            let tab = 'tab' + output
+            let actualOutputTab = 'tab' + newGrilla.actual.output
+
+            if (tab == actualOutputTab) {
+                document.getElementById(tab).classList.add('active');
+                document.getElementById(actualOutputTab).classList.remove('text-danger')
+                document.getElementById(actualOutputTab).classList.add('bg-danger')
             } else {
-                tabDelOutput.classList.add('text-danger')
+                document.getElementById(tab).classList.add('active');
+                document.getElementById(actualOutputTab).classList.add('text-danger')
             }
         })
     }

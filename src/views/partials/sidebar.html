@@ -23,44 +23,4 @@
     <div class="b-example-divider"></div>
 </main>
 
-<script>
-
-
-    function refreshSidebar() {
-        fetchGrilla().then(newGrilla => {
-            document.getElementById('tituloRegata').innerHTML = newGrilla.titulo
-            var listMenu = ''
-            newGrilla.data.forEach(function (item) {
-                listMenu = listMenu + '<button type="button" onclick="setOutput(' + item.categoria.nro + ',this)" ' +
-                    'class="nav-link link-dark text-decoration-none text-start >" id="tab' + item.categoria.nro + '" ' +
-                    'style="cursor: pointer; text-align: left;"> ' +
-                    '<b>' +
-                    item.categoria.nro + '.' +
-                    '</b> &nbsp ' + item.categoria.bote + ' ' +
-                    item.categoria.cat + ' ' +
-                    item.categoria.mf
-
-                if (item.carriles[0].posicion != 0 || item.carriles[0].tiempo != "0:00.00") {
-                    listMenu = listMenu + ' (T)'
-                }
-
-                listMenu = listMenu + ' </button>'
-            })
-            document.getElementById("listMenu").innerHTML = listMenu
-            let tab = 'tab' + output
-            let actualOutputTab = 'tab' + newGrilla.actual.output
-
-            if (tab == actualOutputTab) {
-                document.getElementById(tab).classList.add('active');
-                document.getElementById(actualOutputTab).classList.remove('text-danger')
-                document.getElementById(actualOutputTab).classList.add('bg-danger')
-            } else {
-                document.getElementById(tab).classList.add('active');
-                document.getElementById(actualOutputTab).classList.add('text-danger')
-            }
-
-        })
-    }
-</script>
-
 <script src="sidebars.js"></script>
