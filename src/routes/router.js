@@ -7,6 +7,7 @@ const path = require('path')
 
 const parser = require('../public/scripts/parser.js')
 const jsonUpdater = require('../public/scripts/jsonUpdater.js')
+const jsonToCSV = require('../public/scripts/jsonToCSV.js')
 
 var grilla = require('../public/grilla.json')
 
@@ -38,6 +39,10 @@ router.get('/agregar', (req, res, next) => {
   res.render('upload.html', { alert: undefined })
 })
 
+router.get('/descargar', (req, res, next) => {
+  res.render('descargar.html')
+})
+
 router.get('/terminal', (req, res) => {
   const reject = () => {
     res.setHeader('www-authenticate', 'Basic')
@@ -56,7 +61,7 @@ router.get('/terminal', (req, res) => {
     return reject()
   }
 
-  res.render( 'terminal.html', { titulo: grilla.titulo, actualServerTime: Date.now() } )
+  res.render('terminal.html', { titulo: grilla.titulo, actualServerTime: Date.now() })
 })
 
 //ERROR
@@ -86,7 +91,7 @@ router.get('/visualizador', (req, res, next) => {
 })
 
 router.get('/visualizador/:start', (req, res, next) => {
-  res.render('./visualizadores/visualizador.html', {vista: jsonUpdater.getVista(), myLastRefresh: req.params.start})
+  res.render('./visualizadores/visualizador.html', { vista: jsonUpdater.getVista(), myLastRefresh: req.params.start })
 })
 
 //POST METHODS
@@ -135,6 +140,11 @@ router.post('/Chrono', function (req, res, next) {
 
 router.post('/refreshVisualizador', function (req, res, next) {
   res.redirect('/visualizador/' + req.body.myLastRefresh)
+})
+
+router.post('/downloadCSV', function (req, res, next) {
+  jsonToCSV.downloadCSV()
+  res.redirect('/descargar')
 })
 
 ////////////////////////
