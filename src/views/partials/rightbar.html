@@ -20,14 +20,15 @@
 
     <!-- <p class="m-1"> Mostrando: <br> <span class="badge fw-normal bg-danger rounded-pill" id="pruebaMostrando">
         1 </span> <span class="badge fw-normal bg-danger rounded-pill" id="vistaMostrando"> Vacío </span> </p> -->
-        <div class="text-danger ps-2"> ahora: <span class="badge fw-normal bg-danger rounded-pill" id="pruebaMostrando">
-          1 </span> <span class="badge fw-normal bg-danger rounded-pill" id="vistaMostrando"> Nada </span> </div>
-      <div class="text-secondary ps-2"> luego: <span class="badge fw-normal bg-secondary rounded-pill" id="pruebaMostrar"> 1
-        </span>
-        <span class="badge fw-normal bg-secondary rounded-pill" id="vistaMostrar"> Nada </span>
-      </div>
+    <div class="text-danger ps-2"> ahora: <span class="badge fw-normal bg-danger rounded-pill" id="pruebaMostrando">
+        1 </span> <span class="badge fw-normal bg-danger rounded-pill" id="vistaMostrando"> Nada </span> </div>
+    <div class="text-secondary ps-2"> luego: <span class="badge fw-normal bg-secondary rounded-pill" id="pruebaMostrar">
+        1
+      </span>
+      <span class="badge fw-normal bg-secondary rounded-pill" id="vistaMostrar"> Nada </span>
+    </div>
     <button type="submit" onClick="cambiarMostrando()" class="btn btn-outline-dark text-start mt-1"> Cambiar Vista <br>
-      
+
     </button>
   </div>
 
@@ -186,6 +187,8 @@
       document.getElementById('chronobox').classList.add('bg-info');
       document.getElementById('chronobox').classList.remove('bg-warning');
 
+      document.getElementById('posicionButton').innerHTML = 'reordenar'
+      document.getElementById('posicionButton').hidden = false
     }
   }
 

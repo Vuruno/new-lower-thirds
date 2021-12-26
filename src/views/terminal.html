@@ -112,11 +112,11 @@
                 '</div>' +
                 '<div class="col-2 ">'
 
-            if (showTiempo) {
+            if (showTiempo && document.getElementById('chrono').innerText == '0:00.00') {
                 listaCanchas = listaCanchas +
                     '<button type="submit" class="btn btn-outline-secondary pb-0 pt-0 ps-1 pe-1" ' +
                     'onClick="reiniciarPos(this)" id="posicionButton"> reordenar </button>'
-            } else if (showPosicion) {
+            } else if (showPosicion && document.getElementById('chrono').innerText == '0:00.00') {
                 listaCanchas = listaCanchas +
                     '<button type="submit" class="btn btn-outline-secondary pb-0 pt-0 ps-1 pe-1" ' +
                     'onClick="reiniciarPos(this)" id="posicionButton"> reiniciar </button>'
@@ -281,8 +281,10 @@
 
         } else {
             that.innerHTML = 'seguro?'
+            document.getElementById('posicionButton').disabled = true
             that.addEventListener('mouseout', function () {
                 that.innerHTML = 'reiniciar'
+                document.getElementById('posicionButton').disabled = false
             })
         }
     }
@@ -314,6 +316,15 @@
             document.getElementById('tiempoButton').hidden = false
             document.getElementById('posicionButton').innerHTML = 'reordenar'
             document.getElementById('posicionButton').hidden = false
+
+            let arrayTimes = document.getElementById('timeAct').value.split(',')
+            for (i in arrayTimes) {
+                let idToSearchT = 't' + i
+                let idToSearchP = 'p' + i
+
+                document.getElementById(idToSearchP).disabled = false
+                document.getElementById(idToSearchT).disabled = false
+            }
         }
 
         else if (that.innerText == 'reiniciar') {
@@ -327,7 +338,10 @@
             let arrayTimes = document.getElementById('timeAct').value.split(',')
             for (i in arrayTimes) {
                 let idToSearch = 't' + i
+
+                document.getElementById(idToSearch).disabled = true
                 arrayTimes[i] = document.getElementById(idToSearch).innerText
+
                 if (arrayTimes[i] == '0:00.00') arrayTimes[i] = '999'
             }
             tiemposDeLaPrueba = arrayTimes.sort()
@@ -361,8 +375,6 @@
 
         if (document.getElementById('chrono').innerText != '0:00.00') {
             document.getElementById('tiempoButton').hidden = false
-            document.getElementById('posicionButton').innerHTML = 'reordenar'
-            document.getElementById('posicionButton').hidden = false
         }
 
         if (time != '0:00.00') {
@@ -386,20 +398,29 @@
 
     function setPosicion(that, time = '') {
         if (document.getElementById('posicionButton').innerText == 'reordene' && time == '') {
+            that.disabled = true
+
             let tiempoID = 't' + that.id.charAt(1)
             tiempoID = document.getElementById(tiempoID)
+
             let tiempoAOdenar = tiemposDeLaPrueba[0]
             tiemposDeLaPrueba.splice(0, 1)
-            if (tiempoAOdenar != '999') setTime(tiempoID, tiempoAOdenar)
-            else reiniciarPos(document.getElementById('posicionButton'))
+            
+            if (tiemposDeLaPrueba[0] == '999' || tiemposDeLaPrueba[0] == undefined) {
+                reiniciarPos(document.getElementById('posicionButton'))
+            }
+
+            setTime(tiempoID, tiempoAOdenar)
 
         } else if (
             (!document.getElementById('tiempoButton').hidden && time != '') ||
             (document.getElementById('tiempoButton').hidden && time != '') ||
             (document.getElementById('tiempoButton').hidden && time == '')
         ) {
-            if (time == '') document.getElementById('posicionButton').innerHTML = 'reiniciar'
-            document.getElementById('posicionButton').hidden = false
+            if (time == '') {
+                document.getElementById('posicionButton').innerHTML = 'reiniciar'
+                document.getElementById('posicionButton').hidden = false
+            }
 
             let arrayPosiciones = document.getElementById('timeAct').value.split(',')
             let tiemp = 't' + that.id.charAt(1)
