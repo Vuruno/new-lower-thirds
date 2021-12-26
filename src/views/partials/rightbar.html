@@ -77,7 +77,6 @@
       if (data.refresh != myLastRefresh) {
         myLastRefresh = data.refresh
         refrescar()
-        refreshSidebar()
       }
 
       if (data.start.charAt(0) != 'r') {
@@ -87,7 +86,6 @@
           stoptime = 1
           triggerTimer('1')
           refrescar()
-          refreshSidebar()
         }
         if (data.start != '0' && !auxStarted && stoptime == 0) {
           triggerTimer(data.start)

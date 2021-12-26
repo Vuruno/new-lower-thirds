@@ -24,7 +24,7 @@
                     <div class="row pt-1 pb-1 h-100 d-flex">
                         <div class="col me-2 ms-0">
                             <h1 id="titulo" class=""> </h1>
-                            <hr>
+                            <hr style="margin-bottom: 1em; margin-top: 1em;">
                             <div class="mt-0">
                                 <form action="/Time" id="myForm" method="post" target="receiver">
                                     <input name="canchaAct" id="canchaAct" value="1" hidden> </input>
@@ -38,8 +38,10 @@
                                     </ul>
                                 </form>
                             </div>
-                            <div class="text-secondary vsmall fw-light fixed-bottom text-center"> Presione un num. para
-                                fijar posicion, alt + num. para tiempo</div>
+                            <div class="fixed-bottom">
+                                <div class="text-secondary vsmall text-center"> Presione un num. para
+                                    fijar posicion, alt + num. para tiempo</div>
+                            </div>
                         </div>
                         <div class="col-3">
                             <%- include('partials/rightbar.html') %>
@@ -63,6 +65,7 @@
     }))
 
     var output = 1
+    var tiemposDeLaPrueba = []
     var posiciones = []
     var idrm, timethen, remds //Variables para calcular rpm
     var arrayDeCantidadDeCanchas
@@ -90,8 +93,71 @@
             document.getElementById("titulo").innerHTML = titulo
             document.getElementById("regataAct").value = output
 
+            let datosDeEstaPrueba = newGrilla.data[output - 1].carriles
+            let showPosicion, showTiempo, showRPM = false
+
+            datosDeEstaPrueba.forEach(function (item) {
+                if (item.posicion != '0') showPosicion = true
+                if (item.tiempo != '0:00.00') showTiempo = true
+                if (item.rpm != '00') showRPM = true
+            })
+
             //LISTA DE carriles
-            var listaCanchas = '<li class="list-group-item container fw-bold">' +
+            var listaCanchas = '<div class="fw-light ps-3 pe-3">' +
+                '<div class="row align-items-center justify-content-center">' +
+                '<div class="col-1 text-light pb-1">' +
+                'A' +
+                '</div>' +
+                '<div class="col">' +
+                '</div>' +
+                '<div class="col-2 ">'
+
+            if (showTiempo) {
+                listaCanchas = listaCanchas +
+                    '<button type="submit" class="btn btn-outline-secondary pb-0 pt-0 ps-1 pe-1" ' +
+                    'onClick="reiniciarPos(this)" id="posicionButton"> reordenar </button>'
+            } else if (showPosicion) {
+                listaCanchas = listaCanchas +
+                    '<button type="submit" class="btn btn-outline-secondary pb-0 pt-0 ps-1 pe-1" ' +
+                    'onClick="reiniciarPos(this)" id="posicionButton"> reiniciar </button>'
+            } else {
+                listaCanchas = listaCanchas +
+                    '<button type="submit" class="btn btn-outline-secondary pb-0 pt-0 ps-1 pe-1" ' +
+                    'onClick="reiniciarPos(this)" id="posicionButton" hidden> reordenar </button>'
+            }
+
+            listaCanchas = listaCanchas +
+                '</div>' +
+                '<div class="col-2">'
+            if (showTiempo) {
+                listaCanchas = listaCanchas +
+                    '<button type="submit" class="btn btn-outline-secondary pb-0 pt-0 ps-1 pe-1" ' +
+                    'onClick="reiniciar(this)" id="tiempoButton"> reiniciar </button>'
+            } else {
+                listaCanchas = listaCanchas +
+                    '<button type="submit" class="btn btn-outline-secondary pb-0 pt-0 ps-1 pe-1" ' +
+                    'onClick="reiniciar(this)" id="tiempoButton" hidden> reiniciar </button>'
+            }
+
+            listaCanchas = listaCanchas + '</div>' +
+                '<div class="col-2">'
+            if (showRPM) {
+                listaCanchas = listaCanchas +
+                    '<button type="submit" class="btn btn-outline-secondary pb-0 pt-0 ps-1 pe-1" ' +
+                    'onClick="reiniciarRPM(this)" id="rpmButton"> rein. </button>'
+            } else {
+                listaCanchas = listaCanchas +
+                    '<button type="submit" class="btn btn-outline-secondary pb-0 pt-0 ps-1 pe-1" ' +
+                    'onClick="reiniciarRPM(this)" id="rpmButton" hidden> rein. </button>'
+            }
+
+            listaCanchas = listaCanchas +
+                '</div>' +
+                '</div>' +
+                '</div>'
+
+            listaCanchas = listaCanchas +
+                '<li class="list-group-item container fw-bold pt-0">' +
                 '<div class="row align-items-center justify-content-center">' +
                 '<div class="col-1">' +
                 'carril' +
@@ -100,19 +166,13 @@
                 'tripulación' +
                 '</div>' +
                 '<div class="col-2 ">' +
-                '<button type="submit" class="btn btn-light fw-bold" onmouseover="this.innerHTML = ' +
-                "'rein.'" + '" onmouseout="this.innerHTML = ' + "'pos.'; this.classList.remove('btn-warning'); this.classList.add('btn-light')" +
-                '" onClick="reiniciarPos(this)"> pos. </button>' +
+                'posición' +
                 '</div>' +
                 '<div class="col-2">' +
-                '<button type="submit" class="btn btn-light fw-bold" onmouseover="this.innerHTML = ' +
-                "'reiniciar'" + '" onmouseout="this.innerHTML = ' + "'tiempo'; this.classList.remove('btn-warning'); this.classList.add('btn-light')" +
-                '" onClick="reiniciar(this)"> tiempo </button>' +
+                'tiempo' +
                 '</div>' +
                 '<div class="col-2">' +
-                '<button type="submit" class="btn btn-light fw-bold" onmouseover="this.innerHTML = ' +
-                "'rein.'" + '" onmouseout="this.innerHTML = ' + "'rpm'" +
-                '" onClick="reiniciarRPM()"> rpm </button>' +
+                'rpm' +
                 '</div>' +
                 '</div>' +
                 '</li>'
@@ -194,8 +254,11 @@
         })
     }
 
-    function reiniciar(that) {
-        if (that.innerText == 'seguro?') {
+    function reiniciar(that, reordenar = false) {
+        if (that.innerText == 'seguro?' || reordenar) {
+            that.hidden = true
+            if (!reordenar) document.getElementById('posicionButton').hidden = true
+
             let tab = document.getElementById('tab' + output)
             tab.innerHTML = '<b>' + tab.innerText.split('.')[0] + '.</b>' + tab.innerText.split('.')[1].split('(')[0]
 
@@ -218,13 +281,16 @@
 
         } else {
             that.innerHTML = 'seguro?'
-            that.classList.remove('btn-light')
-            that.classList.add('btn-warning')
+            that.addEventListener('mouseout', function () {
+                that.innerHTML = 'reiniciar'
+            })
         }
     }
 
     function reiniciarPos(that) {
-        if (that.innerText == 'seg.?') {
+        if (that.innerText == 'seguro?') {
+            that.hidden = true
+
             posiciones = []
             let arrayDeReinicio = []
 
@@ -239,15 +305,43 @@
                     document.getElementById('p' + i).innerHTML = '0'
                 } catch (e) { }
             }
-        } else {
-            that.innerHTML = 'seg.?'
-            that.classList.remove('btn-light')
-            that.classList.add('btn-warning')
+        }
+
+        else if (that.innerText == 'reordene') {
+            that.classList.add('btn-outline-secondary')
+            that.classList.remove('btn-secondary')
+
+            document.getElementById('tiempoButton').hidden = false
+            document.getElementById('posicionButton').innerHTML = 'reordenar'
+            document.getElementById('posicionButton').hidden = false
+        }
+
+        else if (that.innerText == 'reiniciar') {
+            that.innerHTML = 'seguro?'
+            that.addEventListener('mouseout', function () {
+                that.innerHTML = 'reiniciar'
+            })
+        }
+
+        else if (that.innerText == 'reordenar') {
+            let arrayTimes = document.getElementById('timeAct').value.split(',')
+            for (i in arrayTimes) {
+                let idToSearch = 't' + i
+                arrayTimes[i] = document.getElementById(idToSearch).innerText
+                if (arrayTimes[i] == '0:00.00') arrayTimes[i] = '999'
+            }
+            tiemposDeLaPrueba = arrayTimes.sort()
+
+            that.innerHTML = 'reordene'
+            that.classList.remove('btn-outline-secondary')
+            that.classList.add('btn-secondary')
+
+            reiniciar(document.getElementById('tiempoButton'), true)
         }
     }
 
-    function reiniciarRPM() {
-
+    function reiniciarRPM(that) {
+        that.hidden = true
         document.getElementById('RPMact').value = 'reiniciar'
 
         for (i = 0; i < 7; i++) {
@@ -257,15 +351,19 @@
         }
     }
 
-    function setTime(that) {
+    function setTime(that, time = document.getElementById('chrono').innerText) {
         let arrayTimes = document.getElementById('timeAct').value.split(',')
 
-        time = document.getElementById('chrono').innerText
         // document.getElementById('canchaAct').value = that.id.charAt(1)
         document.getElementById('RPMact').value = ''
         // document.getElementById('posAct').value = ''
         // document.getElementById('timeAct').value = that.innerText
 
+        if (document.getElementById('chrono').innerText != '0:00.00') {
+            document.getElementById('tiempoButton').hidden = false
+            document.getElementById('posicionButton').innerHTML = 'reordenar'
+            document.getElementById('posicionButton').hidden = false
+        }
 
         if (time != '0:00.00') {
             that.innerHTML = time
@@ -287,33 +385,50 @@
     }
 
     function setPosicion(that, time = '') {
-        let arrayPosiciones = document.getElementById('timeAct').value.split(',')
-        let tiemp = 't' + that.id.charAt(1)
-        tiemp = document.getElementById(tiemp).innerText
-        document.getElementById('canchaAct').value = that.id.charAt(1)
+        if (document.getElementById('posicionButton').innerText == 'reordene' && time == '') {
+            let tiempoID = 't' + that.id.charAt(1)
+            tiempoID = document.getElementById(tiempoID)
+            let tiempoAOdenar = tiemposDeLaPrueba[0]
+            tiemposDeLaPrueba.splice(0, 1)
+            if (tiempoAOdenar != '999') setTime(tiempoID, tiempoAOdenar)
+            else reiniciarPos(document.getElementById('posicionButton'))
 
-        document.getElementById('RPMact').value = ''
-        // document.getElementById('timeAct').value = time
+        } else if (
+            (!document.getElementById('tiempoButton').hidden && time != '') ||
+            (document.getElementById('tiempoButton').hidden && time != '') ||
+            (document.getElementById('tiempoButton').hidden && time == '')
+        ) {
+            if (time == '') document.getElementById('posicionButton').innerHTML = 'reiniciar'
+            document.getElementById('posicionButton').hidden = false
 
-        if (that.innerText == '0') {
-            posiciones.push(that.id)
-            that.innerHTML = posiciones.length
-        } else {
-            reiniciarPos()
-            for (i of posiciones) {
-                document.getElementById(i).innerHTML = '0'
+            let arrayPosiciones = document.getElementById('timeAct').value.split(',')
+            let tiemp = 't' + that.id.charAt(1)
+            tiemp = document.getElementById(tiemp).innerText
+            document.getElementById('canchaAct').value = that.id.charAt(1)
+
+            document.getElementById('RPMact').value = ''
+            // document.getElementById('timeAct').value = time
+
+            if (that.innerText == '0') {
+                posiciones.push(that.id)
+                that.innerHTML = posiciones.length
+            } else {
+                reiniciarPos()
+                for (i of posiciones) {
+                    document.getElementById(i).innerHTML = '0'
+                }
+                posiciones = [that.id]
+                that.innerHTML = '1'
             }
-            posiciones = [that.id]
-            that.innerHTML = '1'
-        }
 
-        for (i in arrayPosiciones) {
-            let id = 'p' + i
-            arrayPosiciones[i] = document.getElementById(id).innerText
-        }
+            for (i in arrayPosiciones) {
+                let id = 'p' + i
+                arrayPosiciones[i] = document.getElementById(id).innerText
+            }
 
-        document.getElementById('posAct').value = arrayPosiciones
-        document.getElementById("myForm").submit();
+            document.getElementById('posAct').value = arrayPosiciones
+            document.getElementById("myForm").submit();
+        }
     }
 
     function setRPM(that) {
@@ -325,6 +440,8 @@
         // document.getElementById('timeAct').value = ''
 
         if (that.id == idrm) {
+            document.getElementById('rpmButton').hidden = false
+
             remds = remds + 1
             let rpm = parseInt(60 / (((time - timethen) / 1000)) * remds)
             document.getElementById('RPMact').value = rpm

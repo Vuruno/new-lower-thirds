@@ -124,6 +124,7 @@ router.post('/processFile', upload.single('csvfile'), function (req, res, next) 
 })
 
 router.post('/Time', function (req, res, next) {
+  console.log(req.body.posAct)
   jsonUpdater.tiempo(req.body.regataAct, req.body.canchaAct,
     req.body.posAct, req.body.timeAct, req.body.RPMact, req.body.ultActualizacion)
 })
