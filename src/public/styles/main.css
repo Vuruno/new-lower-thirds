@@ -52,3 +52,9 @@ body {
     padding: 0%;
     font-size: 2.3em;
 }
+
+.sammy-nowrap-2 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

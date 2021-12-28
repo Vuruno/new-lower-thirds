@@ -1,1 +1,632 @@
-{"actual":{"output":"1","vista":"Nada","chrono":false,"regata":1},"titulo":"Titulo mas facha del mundo","fecha":"2022-01-05","sede":"Bahía de Asunción","data":[{"categoria":{"nro":"1","bote":"4-","cat":"Máster","mf":"Mas"},"carriles":[{"club":"MBIGUA A","nombres":["Rodolfo Hiebl ","Giovanni Scarpetta ","Gustavo Herreros ","Jorge Vazques "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"SAJONIA B","nombres":["Oscar Vallejos ","Ruben Sosa ","Antonio Ruiz Diaz ","Jorge Centurion "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"MBIGUA C","nombres":["Victor Fernandez ","Juan Martinez ","William Feltes ","Luis Castillo "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"MBIGUA B","nombres":["Sergio Ortiz ","Federico Kurn ","Gualberto Cardenas ","Carlos Lopez Moreira "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"SAJONIA A","nombres":["Diego Villasanti ","Benjamin Real ","Aldo Bordon ","Luis Torres "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0}]},{"categoria":{"nro":"2","bote":"2-","cat":"Juvenil","mf":"Mas"},"carriles":[{"club":"SAJONIA","nombres":["Rodrigo Amarilla ","Juan Noguera  "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"PDRS","nombres":["Daniel Villalba ","Nicolas Villalba "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"MBIGUA","nombres":["Guillermo Feltes ","Anibal Britez "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0}]},{"categoria":{"nro":"3","bote":"1x","cat":"Juvenil","mf":"Fem"},"carriles":[{"club":"5° 1ra SERIE","nombres":[],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"4° 1ra SERIE","nombres":[],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"4° 2da SERIE","nombres":[],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0}]},{"categoria":{"nro":"4","bote":"1x","cat":"Juvenil","mf":"Fem"},"carriles":[{"club":"3° 1ra SERIE","nombres":["Nombre "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"2°  2da SERIE","nombres":["Nombre "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"1° 1ra SERIE","nombres":["Nombre "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"1° 2da SERIE","nombres":["Nombre "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"2° 1ra SERIE","nombres":["Nombre "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"3° 2da SERIE","nombres":["Nombre "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0}]},{"categoria":{"nro":"5","bote":"1x","cat":"Menor A","mf":"Mas"},"carriles":[{"club":"SAJONIA A","nombres":["Rodrigo Llano  "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"MBIGUA B","nombres":["Lucas Monges "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"SAJONIA B","nombres":["Nicolas Aquino  "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"PACU CUA","nombres":["Lucas Isasi "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"MBIGUA A","nombres":["Eduardo Vazques "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0}]},{"categoria":{"nro":"6","bote":"1x","cat":"Senior","mf":"Fem"},"carriles":[{"club":"SAJONIA","nombres":["Gabriela Mosqueira "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0}]},{"categoria":{"nro":"7","bote":"2-","cat":"Máster","mf":"Mas"},"carriles":[{"club":"SAJONIA B","nombres":["Diego Villasanti ","Benjamin Real "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"SAJONIA C","nombres":["Favio Nuñez ","Alberto D. Romero "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"MBIGUA","nombres":["Gualberto Cardenas ","Ruben Martinez "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"SAJONIA A","nombres":["Aldo Bordon ","Luis Torres "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0}]},{"categoria":{"nro":"8","bote":"1x","cat":"Senior","mf":"Mas"},"carriles":[{"club":"CRE B","nombres":["Jonathan Trinidad "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"CRE A","nombres":["Alan Ozuna "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"SAJONIA A","nombres":["Oscar Matiuda  "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"PACU CUA","nombres":["Diego Bileski "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"PDRS","nombres":["Hans Duarte "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"SAJONIA B","nombres":["Gustavo Avalos  "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0}]},{"categoria":{"nro":"9","bote":"1x","cat":"Juvenil","mf":"Mas"},"carriles":[{"club":"MBIGUA B","nombres":["Guillermo Feltes "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"PDRS","nombres":["Nicolas Invernizzi "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"SAJONIA B","nombres":["Oscar Santos  "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"SAJONIA A","nombres":["Agustin Benitez  "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"MBIGUA A","nombres":["Gabriel Portillo "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0}]},{"categoria":{"nro":"10","bote":"4x","cat":"Abierto","mf":"Fem"},"carriles":[{"club":"SAJONIA B","nombres":["Ahilin Sanabria  ","Eliana Sosa  ","Rocio Bordon  ","Adriana Sanabria  "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"SAJONIA A","nombres":["Rocio Rivarola ","Karina Centurion  ","Florencia Lopez  ","Gabriela Mosqueira "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0}]},{"categoria":{"nro":"11","bote":"2-","cat":"Senior","mf":"Mas"},"carriles":[{"club":"PDRS","nombres":["Arturo Rivarola ","Daniel Villalba "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"SAJONIA","nombres":["Javier Infran  ","Franco Chiola  "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0}]},{"categoria":{"nro":"12","bote":"2-","cat":"Menor B","mf":"Fem"},"carriles":[{"club":"SAJONIA","nombres":["Ivanna Sosa  ","Fiorela Rodriguez  "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"PDRS","nombres":["Gianella Rodriguez ","Naomi Lopez "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"MBIGUA","nombres":["Nicole Zillich ","Maria Luz Blanco "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0}]},{"categoria":{"nro":"13","bote":"1x","cat":"Máster","mf":"Mas"},"carriles":[{"club":"SAJONIA A","nombres":["Aldo Bordon "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"SAJONIA B","nombres":["Luis Muniagurria "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"MBIGUA A","nombres":["Gualberto Cardenas "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"MBIGUA B","nombres":["Ruben Martinez "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"CNSB","nombres":[],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0}]},{"categoria":{"nro":"14","bote":"2-","cat":"Senior","mf":"Fem"},"carriles":[{"club":"SAJONIA A","nombres":["Rocio Rivarola ","Florencia Lopez  "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"SAJONIA B","nombres":["Eliana Sosa  ","Karina Centurion  "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0}]},{"categoria":{"nro":"15","bote":"1x","cat":"Menor A","mf":"Fem"},"carriles":[{"club":"SAJONIA A","nombres":["Luciana Avalos  "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"MBIGUA","nombres":["Camila Recalde "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"PDRS A","nombres":["Lucia Martinez "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"PACU CUA","nombres":["Tatiana Kisser "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"PDRS B","nombres":["Amber Leiva "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"SAJONIA B","nombres":["Jasmiin Alvares  "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0}]},{"categoria":{"nro":"16","bote":"4-","cat":"Abierto","mf":"Mas"},"carriles":[{"club":"MBIGUA","nombres":["Gabriel Portillo ","Ivan Estigarribia ","Santino Ortega ","Gualberto Cardenas "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"PDRS","nombres":["Nicolas Villalba ","Arturo Rivarola ","Nicolas Invernizzi ","Hans Duarte "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"SAJONIA","nombres":["Franco Chiola  ","Javier Infran  ","Gustavo Avalos  ","Matias Ramirez  "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0}]},{"categoria":{"nro":"17","bote":"8+","cat":"Abierto","mf":"Fem"},"carriles":[{"club":"SAJONIA","nombres":["Rocio Rivarola ","Florencia Lopez  ","Gabriela Mosqueira ","Karina Centurion  ","Ahilin Sanabria  ","Rocio Rivarola ","Eliana Sosa  ","Fiorela Rodriguez  ","Ivanna Sosa  "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0}]},{"categoria":{"nro":"18","bote":"8+","cat":"Abierto","mf":"Fem"},"carriles":[{"club":"PDRS","nombres":["Nicolas Villalba ","Daniel Villalba ","Nicolas Invernizzi ","Arturo Rivarola ","Rodrigo Yanho ","Giancarlos Oreggioni ","Hans Duarte ","Pablo Seitz ","Gianella Rodriguez "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0},{"club":"SAJONIA","nombres":["Franco Chiola  ","Javier Infran  ","Gustavo Avalos  ","Oscar Matiuda  ","Alejandro Camacho  ","Rodrigo Amarilla ","Juan Noguera  ","Agustin Benitez  ","Eliana Sosa  "],"tiempo":"0:00.00","posicion":"0","rpm":"00","puntaje":0}]}]}
+{"actual": {
+"output": "1", 
+"vista": "Nada", 
+"chrono": false,
+"regata": 1
+},
+"titulo": "2do día Paraguayo 2021",
+"fecha": "2021-12-28",
+"sede": "Bahía de Asunción",
+"data": [
+{"categoria": {
+"nro": "1",
+"bote": "4-",
+"cat": "Master",
+"mf": "Mas"
+},
+"carriles": [{
+"club": "MBIGUA A",
+"nombres": ["Rodolfo Hiebl ","Giovanni Scarpetta ","Gustavo Herreros ","Jorge Vazques "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "SAJONIA B",
+"nombres": ["Oscar Vallejos ","Ruben Sosa ","Antonio Ruiz Diaz ","Jorge Centurion "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "MBIGUA C",
+"nombres": ["Victor Fernandez ","Juan Martinez ","William Feltes ","Luis Castillo "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "MBIGUA B",
+"nombres": ["Sergio Ortiz ","Federico Kurn ","Gualberto Cardenas ","Carlos Lopez Moreira "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "SAJONIA A",
+"nombres": ["Diego Villasanti ","Benjamin Real ","Aldo Bordon ","Luis Torres "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+}]},
+{"categoria": {
+"nro": "2",
+"bote": "2-",
+"cat": "Juvenil",
+"mf": "Mas"
+},
+"carriles": [{
+"club": "SAJONIA",
+"nombres": ["Rodrigo Amarilla ","Juan Noguera  "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "PDRS",
+"nombres": ["Daniel Villalba ","Nicolas Villalba "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "MBIGUA",
+"nombres": ["Guillermo Feltes ","Anibal Britez "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+}]},
+{"categoria": {
+"nro": "3",
+"bote": "1x",
+"cat": "Juvenil",
+"mf": "Fem"
+},
+"carriles": [{
+"club": "5° 1ra SERIE",
+"nombres": [""],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "4° 1ra SERIE",
+"nombres": [""],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "4° 2da SERIE",
+"nombres": [""],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+}]},
+{"categoria": {
+"nro": "4",
+"bote": "1x",
+"cat": "Juvenil",
+"mf": "Fem"
+},
+"carriles": [{
+"club": "3° 1ra SERIE",
+"nombres": ["Nombre "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "2°  2da SERIE",
+"nombres": ["Nombre "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "1° 1ra SERIE",
+"nombres": ["Nombre "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "1° 2da SERIE",
+"nombres": ["Nombre "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "2° 1ra SERIE",
+"nombres": ["Nombre "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "3° 2da SERIE",
+"nombres": ["Nombre "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+}]},
+{"categoria": {
+"nro": "5",
+"bote": "1x",
+"cat": "Menor A",
+"mf": "Mas"
+},
+"carriles": [{
+"club": "SAJONIA A",
+"nombres": ["Rodrigo Llano  "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "MBIGUA B",
+"nombres": ["Lucas Monges "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "SAJONIA B",
+"nombres": ["Nicolas Aquino  "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "PACU CUA",
+"nombres": ["Lucas Isasi "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "MBIGUA A",
+"nombres": ["Eduardo Vazques "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+}]},
+{"categoria": {
+"nro": "6",
+"bote": "1x",
+"cat": "Senior PL",
+"mf": "Fem"
+},
+"carriles": [{
+"club": "SAJONIA",
+"nombres": ["Gabriela Mosqueira "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+}]},
+{"categoria": {
+"nro": "7",
+"bote": "2-",
+"cat": "Master",
+"mf": "Mas"
+},
+"carriles": [{
+"club": "SAJONIA B",
+"nombres": ["Diego Villasanti ","Benjamin Real "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "SAJONIA C",
+"nombres": ["Favio Nuñez ","Alberto D. Romero "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "MBIGUA",
+"nombres": ["Gualberto Cardenas ","Ruben Martinez "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "SAJONIA A",
+"nombres": ["Aldo Bordon ","Luis Torres "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+}]},
+{"categoria": {
+"nro": "8",
+"bote": "1x",
+"cat": "Senior PL",
+"mf": "Mas"
+},
+"carriles": [{
+"club": "CRE B",
+"nombres": ["Jonathan Trinidad "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "CRE A",
+"nombres": ["Alan Ozuna "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "SAJONIA A",
+"nombres": ["Oscar Matiuda  "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "PACU CUA",
+"nombres": ["Diego Bileski "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "PDRS",
+"nombres": ["Hans Duarte "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "SAJONIA B",
+"nombres": ["Gustavo Avalos  "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+}]},
+{"categoria": {
+"nro": "9",
+"bote": "1x",
+"cat": "Juvenil",
+"mf": "Mas"
+},
+"carriles": [{
+"club": "MBIGUA B",
+"nombres": ["Guillermo Feltes "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "PDRS",
+"nombres": ["Nicolas Invernizzi "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "SAJONIA B",
+"nombres": ["Oscar Santos  "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "SAJONIA A",
+"nombres": ["Agustin Benitez  "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "MBIGUA A",
+"nombres": ["Gabriel Portillo "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+}]},
+{"categoria": {
+"nro": "10",
+"bote": "4x",
+"cat": "Abierto",
+"mf": "Fem"
+},
+"carriles": [{
+"club": "SAJONIA B",
+"nombres": ["Ahilin Sanabria  ","Eliana Sosa  ","Rocio Bordon  ","Adriana Sanabria  "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "SAJONIA A",
+"nombres": ["Rocio Rivarola ","Karina Centurion  ","Florencia Lopez  ","Gabriela Mosqueira "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+}]},
+{"categoria": {
+"nro": "11",
+"bote": "2-",
+"cat": "Senior",
+"mf": "Mas"
+},
+"carriles": [{
+"club": "PDRS",
+"nombres": ["Arturo Rivarola ","Daniel Villalba "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "SAJONIA",
+"nombres": ["Javier Infran  ","Franco Chiola  "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+}]},
+{"categoria": {
+"nro": "12",
+"bote": "2-",
+"cat": "Menor B",
+"mf": "Fem"
+},
+"carriles": [{
+"club": "SAJONIA",
+"nombres": ["Ivanna Sosa  ","Fiorela Rodriguez  "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "PDRS",
+"nombres": ["Gianella Rodriguez ","Naomi Lopez "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "MBIGUA",
+"nombres": ["Nicole Zillich ","Maria Luz Blanco "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+}]},
+{"categoria": {
+"nro": "13",
+"bote": "1x",
+"cat": "Master",
+"mf": "Mas"
+},
+"carriles": [{
+"club": "SAJONIA A",
+"nombres": ["Aldo Bordon "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "SAJONIA B",
+"nombres": ["Luis Muniagurria "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "MBIGUA A",
+"nombres": ["Gualberto Cardenas "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "MBIGUA B",
+"nombres": ["Ruben Martinez "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "CNSB",
+"nombres": [""],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+}]},
+{"categoria": {
+"nro": "14",
+"bote": "2-",
+"cat": "Senior",
+"mf": "Fem"
+},
+"carriles": [{
+"club": "SAJONIA A",
+"nombres": ["Rocio Rivarola ","Florencia Lopez  "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "SAJONIA B",
+"nombres": ["Eliana Sosa  ","Karina Centurion  "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+}]},
+{"categoria": {
+"nro": "15",
+"bote": "1x",
+"cat": "Menor A",
+"mf": "Fem"
+},
+"carriles": [{
+"club": "SAJONIA A",
+"nombres": ["Luciana Avalos  "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "MBIGUA",
+"nombres": ["Camila Recalde "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "PDRS A",
+"nombres": ["Lucia Martinez "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "PACU CUA",
+"nombres": ["Tatiana Kisser "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "PDRS B",
+"nombres": ["Amber Leiva "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "SAJONIA B",
+"nombres": ["Jasmiin Alvares  "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+}]},
+{"categoria": {
+"nro": "16",
+"bote": "4-",
+"cat": "Abierto",
+"mf": "Mas"
+},
+"carriles": [{
+"club": "MBIGUA",
+"nombres": ["Gabriel Portillo ","Ivan Estigarribia ","Santino Ortega ","Gualberto Cardenas "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "PDRS",
+"nombres": ["Nicolas Villalba ","Arturo Rivarola ","Nicolas Invernizzi ","Hans Duarte "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "SAJONIA",
+"nombres": ["Franco Chiola  ","Javier Infran  ","Gustavo Avalos  ","Matias Ramirez  "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+}]},
+{"categoria": {
+"nro": "17",
+"bote": "8+",
+"cat": "Abierto",
+"mf": "Fem"
+},
+"carriles": [{
+"club": "SAJONIA",
+"nombres": ["Rocio Rivarola ","Florencia Lopez  ","Gabriela Mosqueira ","Karina Centurion  ","Ahilin Sanabria  ","Rocio Rivarola ","Eliana Sosa  ","Fiorela Rodriguez  ","Ivanna Sosa  "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+}]},
+{"categoria": {
+"nro": "18",
+"bote": "8+",
+"cat": "Abierto",
+"mf": "Fem"
+},
+"carriles": [{
+"club": "PDRS",
+"nombres": ["Nicolas Villalba ","Daniel Villalba ","Nicolas Invernizzi ","Arturo Rivarola ","Rodrigo Yanho ","Giancarlos Oreggioni ","Hans Duarte ","Pablo Seitz ","Gianella Rodriguez "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+},
+{
+"club": "SAJONIA",
+"nombres": ["Franco Chiola  ","Javier Infran  ","Gustavo Avalos  ","Oscar Matiuda  ","Alejandro Camacho  ","Rodrigo Amarilla ","Juan Noguera  ","Agustin Benitez  ","Eliana Sosa  "],
+"tiempo": "0:00.00",
+"posicion": "0",
+"rpm": "00",
+"puntaje": 0
+}]}
+]
+}

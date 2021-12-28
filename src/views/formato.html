@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>
+    Formato requerido
+  </title>
+  <meta charset="UTF-8">
+  <%- include('partials/head.html') %>
+
+</head>
+
+<body>
+  <main>
+    <%- include('partials/navigation.html') %>
+      <section class="py-5 text-center container">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light"> Formato requerido </h1>
+          <p class="lead text-muted"> Para el formato del archivo Excel se requieren <b>4 puntos</b>
+            a tener en cuenta:</p>
+          <a type="button" href="#ejemplos" class="btn btn-primary">Ejemplos</a>
+        </div>
+      </section>
+
+      <section class="py-5 text-center container">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h3 class="fw-light"> punto 1 </h3>
+          <p class="lead text-muted"> Solo se tomará en cuenta el primer libro del archivo Excel.
+            Debe estar guardado con extensión .xlsx, la extensión .xls no es compatible. </p>
+        </div>
+      </section>
+
+      <section class="py-5 text-center container">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h3 class="fw-light"> punto 2 </h3>
+          <p class="lead text-muted"> El encabezado (en <b>negrita </b> en los ejemplos) debe contener las siguientes
+            columnas (en este orden): </p>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item pt-3">El número de la regata:<br>
+              <div class="text-muted"> indicado con: "orden", "ord", "nro", "numero". (No utilice "prueba") </div>
+            </li>
+            <li class="list-group-item pt-3">Prueba o evento:<br>
+              <div class="text-muted">
+                <b>Nomenclatura internacional:</b> <br>
+                Indique la columna con "prueba", "pruebas", "evento" o "eventos". (No use
+                abreviaturas). Ejemplos de la nomenclatura World Rowing: "M1x", "LW2-", "BM4x", "JW8+", "BLM2x".
+                <br><br>
+                <b>Nomenclatura en español (FEPARE):</b> <br>
+                Utilice 3 columnas<br>
+                "bote" (ej. "1x"; "4+").<br>
+                "cat" o "categoria" (ej. "Máster"; "Inf"; "Men B"; "Senior PL").<br>
+                "sexo" ("Mas", "M", "Fem", "F").
+              </div>
+            </li>
+            <li class="list-group-item pt-3">Descripción (opcional):<br>
+              <div class="text-muted">designado con "carriles" o deje vacío (vea el inciso d). Puede ir en cualquier
+                lugar y contener lo que desee (ej. posiciones, puesto, tiempo, etc). </div>
+            </li>
+            <li class="list-group-item pt-3">6 carriles (ni más ni menos):<br>
+              <div class="text-muted"> Designe con "Carril 1, Carril 2" o "Cancha 1, Cancha 2" si el encabezado de
+                la columna descripción está vacía o si no tiene columna descripción. Designe con "1", "2" si posee la
+                columna descripción con el encabezado "carriles". </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="py-5 text-center container">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h3 class="fw-light"> punto 3 </h3>
+          <p class="lead text-muted"> Las columnas de orden y de categoría deben estar vacías por debajo de su
+            descripción (marcado en rojo en los ejemplos). </p>
+        </div>
+      </section>
+
+      <section class="py-5 text-center container">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h3 class="fw-light"> punto 4 </h3>
+          <p class="lead text-muted"> Solo se tomará en cuenta el primer libro del archivo Excel.
+            Debe estar guardado con extensión .xlsx, la extensión .xls no es compatible. </p>
+        </div>
+      </section>
+
+      <hr>
+      <section class="py-5 text-center container">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light" id="ejemplos"> Ejemplos </h1>
+          <p class="lead text-muted"> Note que se pueden realizar distintas variaciones a los ejemplos. Méramente
+            referenciales. Se recomienda utilizar uno de estos formatos para minimizar errores</p>
+        </div>
+      </section>
+
+      <section class="py-5 text-center container">
+        <h3 class="fw-light"> Ejemplo 1 </h1>
+          <img src="/ejemplo 1.png" class="img-fluid my-1" alt="...">
+          <p class="text-muted"> Estándar FEPARE. </p>
+      </section>
+
+      <section class="py-5 text-center container">
+        <h3 class="fw-light"> Ejemplo 2 </h1>
+          <img src="/ejemplo 2.png" class="img-fluid my-1" alt="...">
+          <p class="text-muted"> Variación estándar FEPARE. Note que la columna de descripción no posee encabezado</p>
+      </section>
+
+      <section class="py-5 text-center container">
+        <h3 class="fw-light"> Ejemplo 3 </h1>
+          <img src="/ejemplo 3.png" class="img-fluid my-1" alt="...">
+          <p class="text-muted"> Variación estándar FEPARE. Note que el encabezado de la columna de descripción es
+            "carril", entonces las columnas de cancha solo tienen el número de de encabezado.</p>
+      </section>
+
+      <section class="py-5 text-center container">
+        <h3 class="fw-light"> Ejemplo 4 </h1>
+          <img src="/ejemplo 4.png" class="img-fluid my-1" alt="...">
+          <p class="text-muted"> Estándar internacional (World Rowing). Los encabezados deben estar en español. </p>
+      </section>
+
+      <section class="py-5 text-center container">
+        <h3 class="fw-light"> Ejemplo 5 </h1>
+          <img src="/ejemplo 5.png" class="img-fluid my-1" alt="...">
+          <p class="text-muted"> Variación estándar internacional (World Rowing). Note que la columna descripción no
+            posee encabezado. </p>
+      </section>
+
+      <section class="py-5 text-center container">
+        <h3 class="fw-light"> Ejemplo 6 </h1>
+          <img src="/ejemplo 6.png" class="img-fluid my-1" alt="...">
+          <p class="text-muted"> Variación estándar internacional (World Rowing). Note que no posee columna descripción.
+          </p>
+      </section>
+      <%- include('partials/footer.html') %>
+  </main>
+</body>
+
+</html>

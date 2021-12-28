@@ -7,18 +7,19 @@ const path = require('path')
 
 const parser = require('../public/scripts/parser.js')
 const jsonUpdater = require('../public/scripts/jsonUpdater.js')
-const jsonToCSV = require('../public/scripts/jsonToCSV.js')
+const unParser = require('../public/scripts/unParser.js')
 
 var grilla = require('../public/grilla.json')
 
 //MULTER: file handeler
 const multer = require('multer')
+const fs = require('fs')
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, path.join(__dirname, '../public'))
   },
   filename: function (req, file, cb) {
-    cb(null, 'grilla.csv')
+    cb(null, 'grilla.xlsx')
   },
   encoding: 'utf-8'
 })
@@ -39,8 +40,8 @@ router.get('/agregar', (req, res, next) => {
   res.render('upload.html', { alert: undefined })
 })
 
-router.get('/descargar', (req, res, next) => {
-  res.render('descargar.html')
+router.get('/formato', (req, res, next) => {
+  res.render('formato.html')
 })
 
 router.get('/terminal', (req, res) => {
@@ -120,7 +121,6 @@ router.post('/processFile', upload.single('csvfile'), function (req, res, next) 
 
   try {
     parser.processFile(req.body.titulo, req.body.fecha, req.body.sede)
-
   } catch (e) {
     console.log(e)
     res.redirect('/agregar/errFormat')
@@ -129,7 +129,6 @@ router.post('/processFile', upload.single('csvfile'), function (req, res, next) 
 })
 
 router.post('/Time', function (req, res, next) {
-  console.log(req.body.posAct)
   jsonUpdater.tiempo(req.body.regataAct, req.body.canchaAct,
     req.body.posAct, req.body.timeAct, req.body.RPMact, req.body.ultActualizacion)
 })
@@ -142,9 +141,28 @@ router.post('/refreshVisualizador', function (req, res, next) {
   res.redirect('/visualizador/' + req.body.myLastRefresh)
 })
 
-router.post('/downloadCSV', function (req, res, next) {
-  jsonToCSV.downloadCSV()
-  res.redirect('/descargar')
+router.get('/downloadCSV', function (req, res, next) {
+  res.download("./src/public/grilla.xlsx", "grilla.xlsx")
+})
+
+router.post('/crearCSV', function (req, res, next) {
+  unParser.processFile()
+})
+
+router.post('/modificarEncabezado', function (req, res, next) {
+  jsonUpdater.modificarEncabezado(req.body.formTitulo, req.body.formSede,
+    req.body.formFecha)
+  res.redirect('/')
+})
+
+router.post('/modificarPrueba', function (req, res, next) {
+  let delegaciones = [req.body.delegacion1, req.body.delegacion2,
+  req.body.delegacion3, req.body.delegacion4, req.body.delegacion5, req.body.delegacion6]
+  let tripulaciones = [req.body.tripulacion1, req.body.tripulacion2,
+  req.body.tripulacion3, req.body.tripulacion4, req.body.tripulacion5, req.body.tripulacion6]
+
+  jsonUpdater.modificarPrueba(req.body.formOutput, req.body.formBote,
+    req.body.formCategoria, req.body.formSexo, delegaciones, tripulaciones)
 })
 
 ////////////////////////

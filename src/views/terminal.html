@@ -52,10 +52,6 @@
         </div>
     </div>
     </div>
-
-    <%- include('partials/footer.html') %>
-
-
 </body>
 
 <script>
@@ -81,7 +77,6 @@
 
     //COLOCAR DATOS QUE VARIAN EN TIEMPO
     async function refrescar() {
-        // document.getElementById('tituloRegata').innerHTML = 'Eskere'
         fetchGrilla().then(newGrilla => {
             //TITULO DE REGATA
             var titulo = '(' +
@@ -90,7 +85,8 @@
                 newGrilla.data[output - 1].categoria.cat + ' ' +
                 newGrilla.data[output - 1].categoria.mf
 
-            document.getElementById("titulo").innerHTML = titulo
+            document.getElementById("titulo").innerHTML = `${titulo} <button type="button" data-bs-toggle="modal"
+                data-bs-target="#cambiarPruebaModal" class="btn btn-light"> <i class="far fa-edit"></i> </button>`
             document.getElementById("regataAct").value = output
 
             let datosDeEstaPrueba = newGrilla.data[output - 1].carriles
@@ -220,8 +216,41 @@
             document.getElementById(newGrilla.actual.vista).classList.remove('list-group-item-action')
             document.getElementById(newGrilla.actual.vista).classList.add('list-group-item-danger')
 
-            //SIDEBAR STAFF
             document.getElementById('tituloRegata').innerHTML = newGrilla.titulo
+            document.getElementById('fechaYlugar').innerHTML = `<button type="button" data-bs-toggle="modal"
+            data-bs-target="#cambiarTituloModal" class="btn btn-light pb-1 pt-1">
+            <i class="far fa-edit"></i> </button> ${newGrilla.fecha} | ${newGrilla.sede}`
+
+            // ------------ MODALS MODIFICAR ------------
+            document.getElementById('formTitulo').value = newGrilla.titulo
+            document.getElementById('formSede').value = newGrilla.sede
+            document.getElementById('formFecha').value = newGrilla.fecha
+
+            document.getElementById('formOutput').value = output
+            document.getElementById('formNro').value = newGrilla.data[output - 1].categoria.nro
+            document.getElementById('formBote').value = newGrilla.data[output - 1].categoria.bote
+            document.getElementById('formCategoria').value = newGrilla.data[output - 1].categoria.cat
+            document.getElementById('formSexo').value = newGrilla.data[output - 1].categoria.mf
+
+            for (let i = 0; i < 6; i++) {
+                let j = Number(i) + 1
+                let k = newGrilla.data[output - 1].carriles[i]
+                if (k != undefined) {
+                    document.getElementById(`delegacion${j}`).value = k.club
+                    document.getElementById(`tripulacion${j}`).value = k.nombres
+                    document.getElementById(`delegacion${j}`).hidden = false
+                    document.getElementById(`tripulacion${j}`).hidden = false
+                } else {
+                    document.getElementById(`delegacion${j}`).value = ""
+                    document.getElementById(`tripulacion${j}`).value = ""
+                    document.getElementById(`delegacion${j}`).hidden = true
+                    document.getElementById(`tripulacion${j}`).hidden = true
+                }
+                
+            }
+
+
+            // ------------- SIDEBAR STAFF ------------------
             var listMenu = ''
             newGrilla.data.forEach(function (item) {
                 listMenu = listMenu + '<button type="button" onclick="setOutput(' + item.categoria.nro + ',this)" ' +
@@ -405,7 +434,7 @@
 
             let tiempoAOdenar = tiemposDeLaPrueba[0]
             tiemposDeLaPrueba.splice(0, 1)
-            
+
             if (tiemposDeLaPrueba[0] == '999' || tiemposDeLaPrueba[0] == undefined) {
                 reiniciarPos(document.getElementById('posicionButton'))
             }

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>
-    Buenos dias
+    Agregar
   </title>
   <meta charset="UTF-8">
   <%- include('partials/head.html') %>
@@ -13,7 +13,9 @@
 
 <body>
   <%- include('partials/navigation.html') %>
-    <form action="/processFile" method="post" class="mx-auto m-5" style="width: 500px;" enctype="multipart/form-data">
+    <div class="h1 text-center"> Agregar archivo </div>
+
+    <form action="/processFile" method="post" class="mx-auto m-2" style="width: 500px;" enctype="multipart/form-data">
 
       <!-- ALERTA DE ERROR AL PARSEAR -->
       <% if (alert=='errFormat' ) { %>
@@ -28,28 +30,75 @@
 
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Grilla</label>
-              <input class="form-control" type="file" name="csvfile" accept=".csv" required>
-              <div id="emailHelp" class="form-text" charset="UTF-8">Debe tener el formato descrito <a href="">aquí</a>.
+              <input class="form-control" type="file" name="csvfile" accept=".xlsx" required>
+              <div id="emailHelp" class="form-text" charset="UTF-8">Debe tener el formato descrito
+                <a href="/formato">aquí</a>.
               </div>
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Título</label>
-              <input class="form-control" name="titulo" required placeholder="Regata Aniversario">
+              <input class="form-control" name="titulo" id="titulo" required placeholder="Regata Aniversario">
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">Fecha</label>
-              <input type="date" class="form-control" name="fecha" required>
+              <input type="date" class="form-control" name="fecha" id="fecha" required>
             </div>
             <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label" required placeholder="Bahía de Asunción"> Sede </label>
-              <input class="form-control" name="sede">
+              <label for="exampleInputPassword1" class="form-label"> Sede
+              </label>
+              <input class="form-control" name="sede" id="sede" required placeholder="Bahía de Asunción">
             </div>
-            <button type="submit" class="btn btn-primary">Agregar</button>
+
+            <div class="modal fade" tabindex="-1" id="descargarModal">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title"> No pierdas tus cambios </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p> Al continuar podrías perder todos los cambios que realizaste, incluyendo los resultados
+                      de las pruebas. <br> Guardá tus cambios <b> descargue el archivo .xlsx</b> con todos los cambios
+                      y resultados guardados. </p>
+                  </div>
+                  <div class="modal-footer">
+                    <a href="/downloadCSV" class="btn btn-primary"> Descargar </a>
+                    <button type="submit" class="btn btn-secondary"> Agregar archivo </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="button" onclick="myModal.toggle()" class="btn btn-primary"> Agregar archivo </button>
             <!-- ALERT -->
 
     </form>
 
     <%- include('partials/footer.html') %>
 </body>
+
+<script>
+  var myModal = new bootstrap.Modal(document.getElementById('descargarModal'), { keyboard: false })
+  // myModal.toggle()
+
+  window.addEventListener('load', fetchGrilla().then(newGrilla => {
+    refrescar()
+  }))
+
+  async function fetchGrilla() {
+    const response = await fetch('/grilla.json');
+    const newGrilla = await response.json();
+    return newGrilla;
+  }
+
+  //COLOCAR DATOS QUE VARIAN EN TIEMPO
+  async function refrescar() {
+    // document.getElementById('tituloRegata').innerHTML = 'Eskere'
+    fetchGrilla().then(newGrilla => {
+      document.getElementById('titulo').value = newGrilla.titulo
+      document.getElementById('fecha').value = newGrilla.fecha
+      document.getElementById('sede').value = newGrilla.sede
+    })
+  }
+</script>
 
 </html>

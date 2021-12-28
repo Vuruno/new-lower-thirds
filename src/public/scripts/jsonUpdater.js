@@ -107,4 +107,31 @@ function getVista() {
     return json.actual.vista
 }
 
-module.exports = { chrono, tiempo, output, getVista }
+function modificarEncabezado(titulo, sede, fecha) {
+    var json = getGrilla()
+    json.titulo = titulo
+    json.sede = sede
+    json.fecha = fecha
+    guardarGrilla(json)
+}
+
+function modificarPrueba(output, bote, cat, mf, delegaciones, tripulaciones) {
+    var json = getGrilla()
+
+    json.data[output -1].categoria.bote = bote
+    json.data[output -1].categoria.cat = cat
+    json.data[output -1].categoria.mf = mf
+
+    for (i in json.data[output -1].carriles) {
+        json.data[output -1].carriles[i].club = delegaciones[i]
+        let tripulacion = tripulaciones[i].split(',')
+
+        for (j in json.data[output -1].carriles[i].nombres) {
+            json.data[output -1].carriles[i].nombres[j] = tripulacion[j]
+        }
+    }
+
+    guardarGrilla(json)
+}
+
+module.exports = { chrono, tiempo, output, getVista, modificarEncabezado, modificarPrueba }

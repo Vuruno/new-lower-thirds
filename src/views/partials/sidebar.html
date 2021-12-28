@@ -3,14 +3,15 @@
 
 <main>
     <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
-        <a href="/" class="text-center  link-dark text-decoration-none">
+        <div class="text-center  link-dark text-decoration-none">
             <span class="fs-5 text-center">
                 <div id='tituloRegata'>
                     <%= grilla.titulo %>
                 </div>
+                <div class="fs-6 fw-light sammy-nowrap-2" id='fechaYlugar'></div>
             </span>
-        </a>
-        <hr>
+        </div>
+        <hr class="mt-0 mb-2">
         <div class="scrollarea">
             <ul class="nav nav-pills flex-column mb-auto" id="listMenu">
 
@@ -19,8 +20,152 @@
         </div>
     </div>
 
-
     <div class="b-example-divider"></div>
 </main>
 
+<!-- Titulo Modal -->
+<div class="modal fade" id="cambiarTituloModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Modificar encabezado </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/modificarEncabezado" method="post">
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label"> Título </label>
+                        <input type="text" class="form-control" id="formTitulo" name="formTitulo">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label"> Fecha </label>
+                        <input type="date" class="form-control" id="formFecha" name="formFecha">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label"> Sede </label>
+                        <input type="text" class="form-control" id="formSede" name="formSede">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Cerrar </button>
+                    <button type="submit" class="btn btn-primary"> Guardar </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Prueba Modal -->
+<div class="modal fade" id="cambiarPruebaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Modificar prueba </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form action="/modificarPrueba" id="modificarPrueba" method="post" target="receiver">
+                    <input type="text" id="formOutput" name="formOutput" hidden>
+                    
+                    <!-- TITULO DE LA PRUEBA -->
+                    <div class="row">
+                        <div class="col-2 mb-3">
+                            <label for="recipient-name" class="col-form-label"> Prueba </label>
+                            <input type="text" class="form-control" id="formNro" disabled>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="recipient-name" class="col-form-label"> Bote </label>
+                            <select id="formBote" name="formBote" class="form-select">
+                                <option>1x+</option>
+                                <option>1x</option>
+                                <option>2-</option>
+                                <option>2x</option>
+                                <option>4-</option>
+                                <option>4x</option>
+                                <option>8+</option>
+                            </select>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="recipient-name" class="col-form-label"> Categoría </label>
+                            <select id="formCategoria" name="formCategoria" class="form-select">
+                                <option>Abierto</option>
+                                <option>Infantil</option>
+                                <option>Juvenil</option>
+                                <option>Máster</option>
+                                <option>Menor A</option>
+                                <option>Menor B</option>
+                                <option>Novicio</option>
+                                <option>Senior</option>
+                                <option>Senior PL</option>
+                                <option>Senior B</option>
+                                <option>Senior B PL</option>
+                            </select>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="recipient-name" class="col-form-label"> Sexo </label>
+                            <select id="formSexo" name="formSexo" class="form-select">
+                                <option>Mas</option>
+                                <option>Fem</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- DATOS DE LA PRUEBA -->
+                    <div class="row">
+                        <div class="col-1 mb-3">
+                            <label for="recipient-name" class="col-form-label"> Carril </label>
+                            <input type="text" class="form-control mb-3" disabled value="1">
+                            <input type="text" class="form-control mb-3 " disabled value="2">
+                            <input type="text" class="form-control mb-3" disabled value="3">
+                            <input type="text" class="form-control mb-3" disabled value="4">
+                            <input type="text" class="form-control mb-3" disabled value="5">
+                            <input type="text" class="form-control mb-3" disabled value="6">
+                        </div>
+                        <div class="col-3 mb-3">
+                            <label for="recipient-name" class="col-form-label"> Delegación </label>
+                            <input type="text" class="form-control mb-3" name="delegacion1" id="delegacion1">
+                            <input type="text" class="form-control mb-3" name="delegacion2" id="delegacion2" hidden>
+                            <input type="text" class="form-control mb-3" name="delegacion3" id="delegacion3" hidden>
+                            <input type="text" class="form-control mb-3" name="delegacion4" id="delegacion4" hidden>
+                            <input type="text" class="form-control mb-3" name="delegacion5" id="delegacion5" hidden>
+                            <input type="text" class="form-control mb-3" name="delegacion6" id="delegacion6" hidden>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="recipient-name" class="col-form-label"> Tripulación </label>
+                            <input type="text" class="form-control mb-3" name="tripulacion1" id="tripulacion1">
+                            <input type="text" class="form-control mb-3" name="tripulacion2" id="tripulacion2" hidden>
+                            <input type="text" class="form-control mb-3" name="tripulacion3" id="tripulacion3" hidden>
+                            <input type="text" class="form-control mb-3" name="tripulacion4" id="tripulacion4" hidden>
+                            <input type="text" class="form-control mb-3" name="tripulacion5" id="tripulacion5" hidden>
+                            <input type="text" class="form-control mb-3" name="tripulacion6" id="tripulacion6" hidden>
+                        </div>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Cerrar </button>
+                <button type="button" onClick="modificarPrueba()" class="btn btn-primary" data-bs-dismiss="modal">
+                    Guardar </button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <script src="sidebars.js"></script>
+
+<script>
+    function modificarPrueba() {
+        document.getElementById('modificarPrueba').submit()
+        setTimeout(function () {
+            refrescar()
+        }, 1000);
+
+    }
+</script>
