@@ -46,7 +46,7 @@ function prueba(json) {
     for (n in json.carriles[0].nombres) {
         fila = ['','','','',1+Number(n)]
         for (c in json.carriles) {
-            fila.push((json.carriles[c].nombres[n]))
+            fila.push(json.carriles[c].nombres[n].trim())
         }
         filex.push(fila)
     }   
