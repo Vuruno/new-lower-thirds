@@ -12,7 +12,7 @@ var filex = 'a'
 var columnas, filas = []
 
 function toUpper(word) {
-    word = word.toString().toLowerCase()
+    word = word.toString().toLowerCase().trim()
     var splited = word.split(' ')
     word = ''
 
